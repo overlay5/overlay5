@@ -1,0 +1,11 @@
+:root {
+  --real-px: calc(100vw / 1920);
+}
+
+html, body {
+  overflow: hidden;
+}
+
+#hover-menu {
+  z-index: 100;
+}

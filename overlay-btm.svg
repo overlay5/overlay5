@@ -1,0 +1,64 @@
+<?xml version="1.0" standalone="no"?>
+<svg width="3840" height="2160" version="1.1" xmlns="http://www.w3.org/2000/svg">
+  <style>
+  svg {
+    stroke-width: 0;
+    fill: none;
+  }
+  .bg {
+    fill: rgba(127,127,0,0.5);
+    fill: darkblue;
+  }
+  .box {
+    fill: black;
+    ry: 20;
+    stroke-width: 20;
+    stroke: rgba(127,127,127,0.0);
+  }
+  .label {
+    fill: rgba(0,0,255,1);
+    text-anchor: topleft;
+    font-size: 40px;
+    font-weight: bold;
+    font-family: "Fira Code";
+  }
+  </style>
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40,0 L 0 0 0 40 40 40 Z" fill="rgba(255,0,0,0.1)" stroke="white" stroke-width="0.5"/>
+    </pattern>
+  </defs>
+
+
+  <!-- <rect id="canvas" class="box"   x="40"   y="40"   width="2920" height="1640"/> -->
+  <rect id="chat"   class="box"   x="3000" y="40"   width="800"  height="1440"/>
+  <rect id="camera" class="box"   x="3000" y="1520" width="800"  height="600"/>
+  <rect id="scope"  class="box"   x="40"   y="1720" width="2920" height="200"/>
+  <rect id="box1"   class="box"   x="40"   y="1960" width="700"  height="160"/>
+  <rect id="box2"   class="box"   x="780"  y="1960" width="700"  height="160"/>
+  <rect id="box3"   class="box"   x="1520" y="1960" width="700"  height="160"/>
+  <rect id="box4"   class="box"   x="2260" y="1960" width="700"  height="160"/>
+
+  <!-- <text id="label1" class="label" x="40"  y="1966" width="700">recent follower</text>
+  <text id="label2" class="label" x="780" y="1966" width="700">followers</text> -->
+
+  <!-- <rect width="100%" height="100%" fill="url(#grid)" /> -->
+
+  <path id="canvas" class="box" d="
+    M 80,40
+    L 2920,40
+    Q 2920,80 2960,80
+    L 2960,1640
+    Q 2920,1640 2920,1680
+    L 80,1680
+    Q 80,1640 40,1640
+    L 40,80
+    Q 80,80 80,40
+    Z
+  "/>
+
+  <!-- <path fill="#0099ff" fill-opacity="1" transform="scale(2.67) translate(0,500)"
+    d="M0,256L24,266.7C48,277,96,299,144,304C192,309,240,299,288,282.7C336,267,384,245,432,208C480,171,528,117,576,117.3C624,117,672,171,720,165.3C768,160,816,96,864,74.7C912,53,960,75,1008,85.3C1056,96,1104,96,1152,106.7C1200,117,1248,139,1296,154.7C1344,171,1392,181,1416,186.7L1440,192L1440,320L1416,320C1392,320,1344,320,1296,320C1248,320,1200,320,1152,320C1104,320,1056,320,1008,320C960,320,912,320,864,320C816,320,768,320,720,320C672,320,624,320,576,320C528,320,480,320,432,320C384,320,336,320,288,320C240,320,192,320,144,320C96,320,48,320,24,320L0,320Z"
+  ></path> -->
+
+</svg>
