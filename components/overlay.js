@@ -27,9 +27,11 @@
           <div id="particles-js"></div>
           <video id="overlay-capture" autoplay />
           <TwitchChat id="overlay-chat" />
-          <video id="overlay-webcam" autoplay />
+          <div id="overlay-webcam-container">
+            <video id="overlay-webcam" autoplay />
+          </div>
           <Oscilloscope id="overlay-scope" />
-          <div id="overlay-top"></div>
+          <img id="overlay-monitor" src="/monitor.png"/>
         </div>
       </v-content>
     `,
@@ -44,7 +46,9 @@
           height: { ideal: 2160 }
         }
       }
-      this.webcamStream = await navigator.mediaDevices.getUserMedia(constraint)
+      this.webcamStream = await navigator.mediaDevices.getUserMedia({
+        video: { width: { ideal: 1920 }, height: { ideal: 1020 } }
+      })
       this.windowCaptureStream = await navigator.mediaDevices.getDisplayMedia(constraint)
       particlesJS.load('particles-js', 'particles.json')
     }

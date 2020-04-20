@@ -12,16 +12,50 @@
   z-index: 20;
 }
 
-#overlay-webcam {
+#overlay-webcam-container {
   position: absolute;
-  max-width: calc(var(--real-px) * (800 / 2));
+  max-width: calc(var(--real-px) * (1920 / 5));
+  max-height: calc(var(--real-px) * (1000 / 5));
+  min-width: calc(var(--real-px) * (1920 / 5));
+  min-height: calc(var(--real-px) * (1080 / 5));
+  left: calc(var(--real-px) * (2920 / 2));
+  top: calc(var(--real-px) * (1440 / 2));
+  z-index: 10;
+  overflow: hidden;
+}
+
+#overlay-webcam {
+  max-width: calc(var(--real-px) * (1920 / 5));
+  max-height: calc(var(--real-px) * (1080 / 5));
+  min-width: calc(var(--real-px) * (1920 / 5));
+  min-height: calc(var(--real-px) * (1080 / 5));
+  filter: grayscale(60%) sepia(60%);
+  margin-left: -40px;
+  /* opacity: 0.75; */
+  z-index: 10;
+}
+
+#overlay-scope {
+  position: absolute;
+  max-width: calc(var(--real-px) * (480 / 2));
   max-height: calc(var(--real-px) * (600 / 2));
-  min-width: calc(var(--real-px) * (800 / 2));
+  min-width: calc(var(--real-px) * (480 / 2));
   min-height: calc(var(--real-px) * (600 / 2));
+  left: calc(var(--real-px) * (2960 / 2));
+  top: calc(var(--real-px) * (1480 / 2));
+  z-index: 35;
+}
+
+
+#overlay-monitor {
+  position: absolute;
+  max-width: calc(var(--real-px) * (1920 / 5));
+  /* max-height: calc(var(--real-px) * (1080 / 5)); */
+  min-width: calc(var(--real-px) * (1920 / 5));
+  min-height: calc(var(--real-px) * (1080 / 5));
   left: calc(var(--real-px) * (2880 / 2));
   top: calc(var(--real-px) * (1400 / 2));
-  z-index: 10;
-  border-radius: 20px;
+  z-index: 20;
 }
 
 #overlay-chat {
@@ -33,7 +67,15 @@
   left: calc(var(--real-px) * (2880 / 2));
   top: calc(var(--real-px) * (160 / 2));
   z-index: 10;
-  background: rgba(30, 30, 30, 0.5) /* #1E1E1E is vuetify "dark" bg */
+  background: rgba(30, 30, 30, 0.5); /* #1E1E1E is vuetify "dark" bg */
+  border-radius: 20px;
+  overflow-y: hidden;
+  overscroll-behavior-y: contain;
+  scroll-snap-type: y mandatory;
+}
+
+#overlay-chat > div:last-child {
+  scroll-snap-align: end;
 }
 
 #overlay-capture {
@@ -44,16 +86,5 @@
   min-height: calc(var(--real-px) * (2080 / 2));
   left: calc(var(--real-px) * (40 / 2));
   top: calc(var(--real-px) * (40 / 2));
-  z-index: 10;
-}
-
-#overlay-scope {
-  position: absolute;
-  max-width: calc(var(--real-px) * (800 / 2));
-  max-height: calc(var(--real-px) * (600 / 2));
-  min-width: calc(var(--real-px) * (800 / 2));
-  min-height: calc(var(--real-px) * (600 / 2));
-  left: calc(var(--real-px) * (2880 / 2));
-  top: calc(var(--real-px) * (1640 / 2));
   z-index: 10;
 }
