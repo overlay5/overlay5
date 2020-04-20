@@ -1,6 +1,24 @@
 (function(){
 
   const CLIENT_ID = '1s5g4rqwrwegxjj0hrngszflirdqh7'
+  const CLIENT_REDIRECT_URI = 'https://overlay5.local:9999/oauth'
+  const CLIENT_SCOPES = [
+    'bits:read',
+    'channel_feed_read',
+    'channel_feed_read',
+    'channel_feed_report',
+    'channel_read',
+    'channel_read',
+    'channel_subscriptions',
+    'channel:read:redemptions',
+    'chat_login',
+    'chat:read',
+    'user_entitlements_read',
+    'user_friends_read',
+    'user_presence_friends_read',
+    'user_read',
+    'user_subscriptions',
+  ].join(' ')
 
   Vue.component('OAuth', {
     render: (h) => {
@@ -40,9 +58,9 @@
       },
       startOAuth: function (event) {
         const client_id = CLIENT_ID
-        const redirect_uri = 'https://overlay5.local:9999/oauth'
+        const redirect_uri = CLIENT_REDIRECT_URI
         const response_type = 'token'
-        const scope = 'bits:read channel_feed_read channel_read channel_subscriptions chat:read'
+        const scope = CLIENT_SCOPES
         const queryString = {
           client_id,
           redirect_uri,
@@ -80,6 +98,8 @@
     },
     template: /*html*/`
       <v-content>
+
+        <NavMenu target="/overlay" icon="keyboard_return" />
 
         <v-dialog raised v-model="twitchDialog" :value="twitchDialog" width="500">
           <v-card raised>

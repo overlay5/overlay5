@@ -1,9 +1,15 @@
 .overlay {
-  background-color: indigo;
-  background-size: auto 100%;
-  background-repeat: no-repeat;
-  background-image: url('/overlay-btm.svg');
-  background-size: auto 100%;
+  width: calc(var(--real-px) * (3840/2));
+  height: calc(var(--real-px) * (2160/2));
+}
+
+#overlay-top {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(var(--real-px) * (3840/2));
+  height: calc(var(--real-px) * (2160/2));
+  z-index: 20;
 }
 
 #overlay-webcam {
@@ -12,32 +18,30 @@
   max-height: calc(var(--real-px) * (600 / 2));
   min-width: calc(var(--real-px) * (800 / 2));
   min-height: calc(var(--real-px) * (600 / 2));
-  left: calc(var(--real-px) * (3000 / 2));
-  top: calc(var(--real-px) * (1520 / 2));
+  left: calc(var(--real-px) * (2880 / 2));
+  top: calc(var(--real-px) * (1400 / 2));
   z-index: 10;
-  border-radius: 15px;
+  border-radius: 20px;
 }
 
 #overlay-capture {
   position: absolute;
-  max-width: calc(var(--real-px) * (2920 / 2));
-  max-height: calc(var(--real-px) * (1640 / 2));
-  min-width: calc(var(--real-px) * (2920 / 2));
-  min-height: calc(var(--real-px) * (1640 / 2));
+  max-width: calc(var(--real-px) * (3760 / 2));
+  max-height: calc(var(--real-px) * (2080 / 2));
+  min-width: calc(var(--real-px) * (3760 / 2));
+  min-height: calc(var(--real-px) * (2080 / 2));
   left: calc(var(--real-px) * (40 / 2));
   top: calc(var(--real-px) * (40 / 2));
   z-index: 10;
-  border-radius: 15px;
 }
 
-#overlay-top {
+#scope-canvas {
   position: absolute;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 100%;
-  background: url('/overlay-top.svg');
-  background-size: auto 100%;
-  background-repeat: no-repeat;
-  z-index: 20;
+  max-width: calc(var(--real-px) * (800 / 2));
+  max-height: calc(var(--real-px) * (600 / 2));
+  min-width: calc(var(--real-px) * (800 / 2));
+  min-height: calc(var(--real-px) * (600 / 2));
+  left: calc(var(--real-px) * (2880 / 2));
+  top: calc(var(--real-px) * (1640 / 2));
+  z-index: 10;
 }

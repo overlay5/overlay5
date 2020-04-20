@@ -3,7 +3,9 @@
     // loglevel
     Vue.$log = log.noConflict() /* global log */
     Vue.$log.setDefaultLevel(Vue.$log.levels.WARN)
-    Vue.$log.error(err.stack)
+    if (err.stack) {
+      Vue.$log.error(err.stack)
+    }
   }
 
   const vuetify = new Vuetify({
@@ -17,8 +19,9 @@
     template: /*html*/`
       <div id="app">
         <v-app>
-          <NavMenu />
-          <router-view />
+          <keep-alive>
+            <router-view :key="$route.fullPath" />
+          </keep-alive>
         </v-app>
       </div>
     `

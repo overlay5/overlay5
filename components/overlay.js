@@ -1,23 +1,45 @@
 (function(){
   Vue.component('Overlay', {
+    data: () => ({
+      webcamStream: null,
+      windowCaptureStream: null,
+    }),
+    watch: {
+      webcamStream: function () { this.updateWebcam() },
+      windowCaptureStream: function () { this.updateWindowCapture() },
+    },
+    methods: {
+      updateWebcam: function () {
+        if (this.webcamStream) {
+          document.getElementById('overlay-webcam').srcObject = this.webcamStream
+        }
+      },
+      updateWindowCapture: function () {
+        if (this.windowCaptureStream) {
+          document.getElementById('overlay-capture').srcObject = this.windowCaptureStream
+        }
+      }
+    },
     template: /*html*/`
       <v-content>
+        <NavMenu target="/config" icon="settings" />
         <div class="overlay">
-          <video id="overlay-capture"></video>
-          <video id="overlay-webcam"></video>
+          <div id="particles-js"></div>
+          <video id="overlay-capture" autoplay />
+          <video id="overlay-webcam" autoplay />
+          <Oscilloscope width="640" height="300" />
           <div id="overlay-top"></div>
         </div>
       </v-content>
     `,
-    mounted: async function () {
-      const webcamStream = await navigator.mediaDevices.getUserMedia({ video: true })
-      const webcamEL = document.getElementById('overlay-webcam')
-      webcamEL.srcObject = webcamStream
-      webcamEL.play()
-      const windowCaptureEL = document.getElementById('overlay-capture')
-      const windowCaptureStream = await navigator.mediaDevices.getDisplayMedia({ video: true })
-      windowCaptureEL.srcObject = windowCaptureStream
-      windowCaptureEL.play()
+    activated: function() {
+      this.updateWebcam()
+      this.updateWindowCapture()
+    },
+    created: async function() {
+      this.webcamStream = await navigator.mediaDevices.getUserMedia({ video: true })
+      this.windowCaptureStream = await navigator.mediaDevices.getDisplayMedia({ video: true })
+      particlesJS.load('particles-js', 'particles.json')
     }
   })
 })()
