@@ -4,7 +4,7 @@
       audioStream: null
     }),
     template: /*html*/`
-      <canvas id="scope-canvas" width="2920" height="200" />
+      <canvas />
     `,
     methods: {
       connect: function (analyser) {

@@ -1,6 +1,4 @@
 (function () {
-
-  const TWITCH_IRC_URI = 'wss://irc-ws.chat.twitch.tv'
   const TWITCH_WS_URI = 'wss://pubsub-edge.twitch.tv'
   const TWITCH_PUBSUB_TOPICS = [
     'broadcast-settings-update',
@@ -79,9 +77,6 @@
         setTimeout(connect, reconnectInterval)
       }
     }
-  }
-
-  window.VuexWebSocket = (store) => {
   }
 
   connect()
