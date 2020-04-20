@@ -61,8 +61,8 @@
             analyser.getByteTimeDomainData(dataArray)
             canvasCtx.clearRect(0, 0, WIDTH, HEIGHT)
 
-            canvasCtx.lineWidth = 2
-            canvasCtx.strokeStyle = '#ffff00'
+            canvasCtx.lineWidth = 1
+            canvasCtx.strokeStyle = '#7f7f7f'
             canvasCtx.beginPath()
 
             const zeroCross = findZeroCrossing(dataArray, WIDTH)
