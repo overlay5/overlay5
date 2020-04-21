@@ -82,8 +82,12 @@
 }
 
 #overlay-chat img {
-  max-height: 16px; /* font-size */
+  max-height: calc(1.1 * 16px); /* line-height * font-size */
   vertical-align: middle;
+}
+
+#overlay-chat img.emote.big {
+  max-height: calc(4 * 16px);
 }
 
 #overlay-chat > div {
