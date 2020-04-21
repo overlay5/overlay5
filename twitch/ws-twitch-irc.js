@@ -16,15 +16,15 @@
   }
 
   async function fetchBadges() {
-    const token = window.localStorage.getItem('access_token')
-    const badges = await fetch(`https://api.twitch.tv/kraken/chat/${CHANNEL_ID}/badges`, {
-      headers: {
-        'Client-ID': CLIENT_ID,
-        'Authorization': `OAuth ${token}`,
-        'Accept': 'application/vnd.twitchtv.v5+json',
-      }
-    })
-    store.dispatch('twitchChatBadges', await badges.json())
+    const globalBadges = await fetch(`https://badges.twitch.tv/v1/badges/global/display?language=en`)
+    const badges = (await globalBadges.json())['badge_sets']
+    const actualBadges = Object.fromEntries(
+      Object.entries(badges)
+        .map( ([k,v]) =>
+          Object.keys(v.versions).map(ver =>
+            [`${k}/${ver}`, v.versions[ver]['image_url_4x']]).flat()
+        ))
+    store.dispatch('twitchChatBadges', actualBadges)
   }
 
   function parseIrcMessage(data) {
