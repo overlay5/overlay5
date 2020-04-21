@@ -1,13 +1,4 @@
 (function(){
-  Vue.config.errorHandler = (err, vm, info) => {
-    // loglevel
-    Vue.$log = log.noConflict() /* global log */
-    Vue.$log.setDefaultLevel(Vue.$log.levels.WARN)
-    if (err.stack) {
-      Vue.$log.error(err.stack)
-    }
-  }
-
   const vuetify = new Vuetify({
     theme: { dark: true }
   })
