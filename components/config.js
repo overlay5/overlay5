@@ -1,7 +1,5 @@
 (function(){
 
-  const CLIENT_ID = '1s5g4rqwrwegxjj0hrngszflirdqh7'
-  const CLIENT_REDIRECT_URI = 'https://overlay5.local:9999/oauth'
   const CLIENT_SCOPES = [
     'bits:read',
     'channel_feed_read',
@@ -24,7 +22,7 @@
     render: (h) => {
       return h()
     },
-    created: function() {
+    created: async function() {
       const oauth = Object.fromEntries(
         window.location.hash.slice(1).split('&').map(x => x.split('=')))
       window.localStorage.setItem('access_token', oauth.access_token)

@@ -69,9 +69,21 @@
   z-index: 10;
   background: rgba(30, 30, 30, 0.5); /* #1E1E1E is vuetify "dark" bg */
   border-radius: 20px;
-  overflow-y: hidden;
+  overflow: hidden;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
   overscroll-behavior-y: contain;
   scroll-snap-type: y mandatory;
+}
+
+#overlay-chat img {
+  max-height: 16px; /* font-size */
+  vertical-align: middle;
+}
+
+#overlay-chat > div {
+  align-items: flex-start;
+  font-family: 'Open Sans';
 }
 
 #overlay-chat > div:last-child {

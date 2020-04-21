@@ -15,6 +15,18 @@
     ws.send(`JOIN #${CLIENT_USERNAME}`)
   }
 
+  async function fetchBadges() {
+    const token = window.localStorage.getItem('access_token')
+    const badges = await fetch(`https://api.twitch.tv/kraken/chat/${CHANNEL_ID}/badges`, {
+      headers: {
+        'Client-ID': CLIENT_ID,
+        'Authorization': `OAuth ${token}`,
+        'Accept': 'application/vnd.twitchtv.v5+json',
+      }
+    })
+    store.dispatch('twitchChatBadges', await badges.json())
+  }
+
   function parseIrcMessage(data) {
     let parsed = {
       message: null,
@@ -22,11 +34,12 @@
       command: null,
       channel: null,
       username: null,
+      raw: data,
     }
     if (data.startsWith('PING')) {
       parsed.command = 'PING'
       parsed.message = data.split(':')[1]
-    } else if (data[0] === '@') {
+    } else if (data[0] === '@' && data.match(/ PRIVMSG /)) {
       const tagIdx = data.indexOf(' '),
             userIdx = data.indexOf(' ', tagIdx + 1),
             commandIdx = data.indexOf(' ', userIdx + 1),
@@ -46,6 +59,9 @@
 
     ws.onopen = function (event) {
       authenticate()
+      fetchBadges()
+        .then(() => console.log(`Successfully fetched badges for channel.`))
+        .catch((err) => console.error(`Failed to fetch badges.`, err))
     }
 
     ws.onerror = function (error) {
@@ -61,9 +77,10 @@
       parsed = parseIrcMessage(event.data)
       if (parsed.command === 'PING') {
         ws.send(`PONG :${parsed.message}`)
-      } else if (parsed.message && parsed.username && parsed.channel === `#${CLIENT_USERNAME}`) {
+      } else if (parsed.message && parsed.username && parsed.command === 'PRIVMSG' && parsed.channel === `#${CLIENT_USERNAME}`) {
         store.dispatch('twitchIrcPush', parsed)
-        console.log(parsed)
+      } else if (parsed.message && parsed.command === 'NOTICE' && parsed.channel === `#${CLIENT_USERNAME}`) {
+        store.dispatch('twitchIrcPush', parsed)
       }
     }
   }
