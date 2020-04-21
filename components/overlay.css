@@ -1,6 +1,7 @@
 .overlay {
   width: calc(var(--real-px) * (3840/2));
   height: calc(var(--real-px) * (2160/2));
+  background: black;
 }
 
 #overlay-top {
@@ -60,15 +61,19 @@
 
 #overlay-chat {
   position: absolute;
-  max-width: calc(var(--real-px) * (800 / 2));
+  /* max-width: calc(var(--real-px) * (800 / 2));
   max-height: calc(var(--real-px) * (800 / 2));
   min-width: calc(var(--real-px) * (800 / 2));
-  min-height: calc(var(--real-px) * (800 / 2));
+  min-height: calc(var(--real-px) * (800 / 2)); */
+  max-width: calc(var(--real-px) * (1920 / 5));
+  min-width: calc(var(--real-px) * (1920 / 5));
+  min-height: calc(var(--real-px) * (1920 / 4));
+  max-height: calc(var(--real-px) * (1920 / 4));
   left: calc(var(--real-px) * (2880 / 2));
   top: calc(var(--real-px) * (160 / 2));
   z-index: 10;
-  background: rgba(30, 30, 30, 0.5); /* #1E1E1E is vuetify "dark" bg */
-  border-radius: 20px;
+  background: rgba(30, 30, 30, 0.8); /* #1E1E1E is vuetify "dark" bg */
+  border-radius: 10px;
   overflow: hidden;
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -99,4 +104,11 @@
   left: calc(var(--real-px) * (40 / 2));
   top: calc(var(--real-px) * (40 / 2));
   z-index: 10;
+  mix-blend-mode: screen;
+}
+
+#overlay-particles {
+  position: absolute;
+  height: 100%;
+  width: 100%;
 }

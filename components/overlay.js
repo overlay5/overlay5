@@ -24,7 +24,7 @@
       <v-content>
         <NavMenu target="/config" icon="settings" />
         <div class="overlay">
-          <div id="particles-js"></div>
+          <div id="overlay-particles"></div>
           <video id="overlay-capture" autoplay />
           <TwitchChat id="overlay-chat" />
           <div id="overlay-webcam-container">
@@ -50,7 +50,7 @@
         video: { width: { ideal: 1920 }, height: { ideal: 1020 } }
       })
       this.windowCaptureStream = await navigator.mediaDevices.getDisplayMedia(constraint)
-      particlesJS.load('particles-js', 'particles.json')
+      particlesJS.load('overlay-particles', 'particles.json')
     }
   })
 })()
