@@ -27,6 +27,7 @@
           const fragment = this.message.message.slice(idx, start)
           const img = document.createElement('img')
           img.src = `https://static-cdn.jtvnw.net/emoticons/v1/${id}/1.0`
+          img.alt = img.title = this.message.message.slice(start, finish + 1)
           escapedMessage.appendChild(document.createTextNode(fragment))
           escapedMessage.appendChild(img)
           idx = finish + 1
