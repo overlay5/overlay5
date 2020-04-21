@@ -1,21 +1,55 @@
 (function(){
 
   const CLIENT_SCOPES = [
+    // API: Undocumented extras
+    // 'user_edit', <- INVALID
+    // 'user_friends_edit', <- INVALID
+    // 'user_friends_read', <- INVALID
+    // 'user_presence_edit', <- INVALID
+    // 'user_subscriptions_edit', <- INVALID
+    // 'channel_feed_report', <- INVALID
+    // 'user_entitlements_read', <- INVALID
+    // 'user_presence_friends_read', <- INVALID
+
+    // API: New (helix)
+    'analytics:read:extensions',
+    'analytics:read:games',
     'bits:read',
+    'channel:read:subscriptions',
+    // 'clips:edit',
+    // 'user:edit',
+    // 'user:edit:broadcast',
+    'user:read:broadcast',
+    // 'user:read:email',
+
+    // API: v5 (kraken)
+    // 'channel_check_subscription',
+    // 'channel_commercial',
+    // 'channel_editor',
+    // 'channel_feed_edit',
     'channel_feed_read',
-    'channel_feed_read',
-    'channel_feed_report',
     'channel_read',
-    'channel_read',
-    'channel_subscriptions',
-    'channel:read:redemptions',
-    'chat_login',
-    'chat:read',
-    'user_entitlements_read',
-    'user_friends_read',
-    'user_presence_friends_read',
+    // 'channel_stream',
+    // 'channel_subscriptions',
+    // 'chat_login', // <- Requires the client to be whitelisted
+    // 'collections_edit',
+    // 'communities_edit',
+    // 'communities_moderate',
+    // 'openid',
+    // 'user_blocks_edit',
+    'user_blocks_read',
+    // 'user_follows_edit',
     'user_read',
-    'user_subscriptions',
+    // 'user_subscriptions',
+    'viewing_activity_read',
+
+    // API: Chat & PubSub
+    // 'channel:moderate',
+    // 'chat:edit',
+    'chat:read',
+    'whispers:read',
+    // 'whispers:edit',
+
   ].join(' ')
 
   Vue.component('OAuth', {
