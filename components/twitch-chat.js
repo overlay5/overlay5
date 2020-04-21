@@ -22,9 +22,8 @@
 
         let idx = 0
         for (let emote of this.message.tags.emotes.split('/')) {
-          const [id,range] = emote.split(':')
-          console.log('emote id', id, 'range', range)
-          const [ start, finish ] = range.split('-')
+          const [ id, range ] = emote.split(':')
+          const [ start, finish ] = range.split('-').map(x => parseInt(x))
           const fragment = this.message.message.slice(idx, start)
           const img = document.createElement('img')
           img.src = `https://static-cdn.jtvnw.net/emoticons/v1/${id}/1.0`
