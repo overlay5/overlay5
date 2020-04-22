@@ -19,19 +19,27 @@
     },
     methods: {
       integrateVideo: async function () {
-        this.webcamStream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            deviceId: { exact: this.mediaWebcam },
-            width: { ideal: 1920 },
-            height: { ideal: 1020 }
-          }
-        })
-        this.windowCaptureStream = await navigator.mediaDevices.getDisplayMedia({
-          video: {
-            width: { ideal: 3840 },
-            height: { ideal: 2160 }
-          }
-        })
+        try {
+          this.webcamStream = await navigator.mediaDevices.getUserMedia({
+            video: {
+              deviceId: { exact: this.mediaWebcam },
+              width: { ideal: 1920 },
+              height: { ideal: 1020 }
+            }
+          })
+        } catch (err) {
+          console.error('Failed to capture the web camera.', { err })
+        }
+        try {
+          this.windowCaptureStream = await navigator.mediaDevices.getDisplayMedia({
+            video: {
+              width: { ideal: 3840 },
+              height: { ideal: 2160 }
+            }
+          })
+        } catch (err) {
+          console.error('Failed to capture the screen display or window.', { err })
+        }
       },
       updateWebcam: function () {
         if (this.webcamStream) {
