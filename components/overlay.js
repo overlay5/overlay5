@@ -56,6 +56,7 @@
           </div>
           <Oscilloscope id="overlay-scope" />
           <img id="overlay-monitor" src="/monitor.png"/>
+          <TwitchViewers id="overlay-viewers" />
         </div>
       </v-content>
     `,

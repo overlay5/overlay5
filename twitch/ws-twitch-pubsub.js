@@ -1,4 +1,10 @@
 (function () {
+  const store = window.vueStore
+
+  if (typeof window.PUBSUB_HANDLERS === 'undefined') {
+    window.PUBSUB_HANDLERS = []
+  }
+
   const TWITCH_WS_URI = 'wss://pubsub-edge.twitch.tv'
   const TWITCH_PUBSUB_TOPICS = [
     'broadcast-settings-update',
@@ -71,11 +77,21 @@
       setTimeout(connect, reconnectInterval)
     }
 
-    ws.onmessage = function (event) {
-      message = JSON.parse(event.data)
-      if (message.type == 'RECONNECT') {
+    ws.onmessage = function (wsEvent) {
+      pubsubEvent = JSON.parse(wsEvent.data)
+      if (pubsubEvent.type == 'RECONNECT') {
         setTimeout(connect, reconnectInterval)
+        return
       }
+      if (pubsubEvent.type === 'MESSAGE') {
+        const [ topic, channel_id ] = pubsubEvent.data.topic.split('.')
+        try {
+          PUBSUB_HANDLERS[topic](JSON.parse(pubsubEvent.data.message))
+        } catch (err) {
+          console.error(`Handling the PubSub message didn't work!`, { err, pubsubEvent })
+        }
+      }
+      store.dispatch('twitchEventsPush', pubsubEvent)
     }
   }
 
