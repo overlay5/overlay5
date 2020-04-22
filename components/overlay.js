@@ -7,8 +7,32 @@
     watch: {
       webcamStream: function () { this.updateWebcam() },
       windowCaptureStream: function () { this.updateWindowCapture() },
+      mediaWebcam: async function () {
+        this.webcamStream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            deviceId: { exact: this.mediaWebcam },
+            width: { ideal: 1920 },
+            height: { ideal: 1020 }
+          }
+        })
+      }
     },
     methods: {
+      integrateVideo: async function () {
+        this.webcamStream = await navigator.mediaDevices.getUserMedia({
+          video: {
+            deviceId: { exact: this.mediaWebcam },
+            width: { ideal: 1920 },
+            height: { ideal: 1020 }
+          }
+        })
+        this.windowCaptureStream = await navigator.mediaDevices.getDisplayMedia({
+          video: {
+            width: { ideal: 3840 },
+            height: { ideal: 2160 }
+          }
+        })
+      },
       updateWebcam: function () {
         if (this.webcamStream) {
           document.getElementById('overlay-webcam').srcObject = this.webcamStream
@@ -43,19 +67,7 @@
       ...Vuex.mapGetters(['mediaWebcam'])
     },
     created: async function() {
-      this.webcamStream = await navigator.mediaDevices.getUserMedia({
-        video: {
-          deviceId: { exact: this.mediaWebcam },
-          width: { ideal: 1920 },
-          height: { ideal: 1020 }
-        }
-      })
-      this.windowCaptureStream = await navigator.mediaDevices.getDisplayMedia({
-        video: {
-          width: { ideal: 3840 },
-          height: { ideal: 2160 }
-        }
-      })
+      await this.integrateVideo()
       particlesJS.load('overlay-particles', 'particles.json')
     }
   })

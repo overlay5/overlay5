@@ -9,7 +9,27 @@
     computed: {
       ...Vuex.mapGetters(['mediaAudio'])
     },
+    watch: {
+      mediaAudio: async function () {
+        this.audioStream = await navigator.mediaDevices.getUserMedia({
+          audio: { deviceId: { exact: this.mediaAudio } }
+        })
+      }
+    },
     methods: {
+      integrateAudio: async function () {
+        this.audioStream = await navigator.mediaDevices.getUserMedia({
+          audio: {
+            deviceId: { exact: this.mediaAudio }
+          }
+        })
+        window.audioStream = this.audioStream
+        let context = new AudioContext()
+        input = context.createMediaStreamSource(this.audioStream)
+        let analyser = context.createAnalyser()
+        input.connect(analyser)
+        this.connect(analyser)
+      },
       connect: function (analyser) {
         analyser.fftSize = 4096 // 2048
         analyser.minDecibels = -90
@@ -82,17 +102,7 @@
       }
     },
     created: async function() {
-      this.audioStream = await navigator.mediaDevices.getUserMedia({
-        audio: {
-          deviceId: { exact: this.mediaAudio }
-        }
-      })
-      window.audioStream = this.audioStream
-      let context = new AudioContext()
-      input = context.createMediaStreamSource(this.audioStream)
-      let analyser = context.createAnalyser()
-      input.connect(analyser)
-      this.connect(analyser)
+      await this.integrateAudio()
     }
   })
 })()
