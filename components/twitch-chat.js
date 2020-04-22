@@ -29,7 +29,6 @@
           img.src = `https://static-cdn.jtvnw.net/emoticons/v1/${id}/1.0`
           img.alt = img.title = this.message.message.slice(start, finish + 1)
           img.classList.add('emote')
-          console.log({ start, finish, len: this.message.message.length })
           if (start === 0 && finish === this.message.message.length - 1) {
             img.classList.add('big')
           }
