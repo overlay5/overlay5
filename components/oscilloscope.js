@@ -6,6 +6,9 @@
     template: /*html*/`
       <canvas />
     `,
+    computed: {
+      ...Vuex.mapGetters(['mediaAudio'])
+    },
     methods: {
       connect: function (analyser) {
         analyser.fftSize = 4096 // 2048
@@ -79,7 +82,11 @@
       }
     },
     created: async function() {
-      this.audioStream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      this.audioStream = await navigator.mediaDevices.getUserMedia({
+        audio: {
+          deviceId: { exact: this.mediaAudio }
+        }
+      })
       window.audioStream = this.audioStream
       let context = new AudioContext()
       input = context.createMediaStreamSource(this.audioStream)

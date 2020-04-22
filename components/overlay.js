@@ -39,17 +39,23 @@
       this.updateWebcam()
       this.updateWindowCapture()
     },
+    computed: {
+      ...Vuex.mapGetters(['mediaWebcam'])
+    },
     created: async function() {
-      const constraint = {
+      this.webcamStream = await navigator.mediaDevices.getUserMedia({
+        video: {
+          deviceId: { exact: this.mediaWebcam },
+          width: { ideal: 1920 },
+          height: { ideal: 1020 }
+        }
+      })
+      this.windowCaptureStream = await navigator.mediaDevices.getDisplayMedia({
         video: {
           width: { ideal: 3840 },
           height: { ideal: 2160 }
         }
-      }
-      this.webcamStream = await navigator.mediaDevices.getUserMedia({
-        video: { width: { ideal: 1920 }, height: { ideal: 1020 } }
       })
-      this.windowCaptureStream = await navigator.mediaDevices.getDisplayMedia(constraint)
       particlesJS.load('overlay-particles', 'particles.json')
     }
   })

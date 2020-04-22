@@ -80,8 +80,25 @@
       this.audioin = devices.filter(device => device.kind === 'audioinput')
       window.addEventListener('focus', this.checkAccessToken)
       this.checkAccessToken()
+      this.audio = this.mediaAudio
+      this.camera = this.mediaWebcam
+    },
+    activated: function () {
+      this.audio = this.mediaAudio
+      this.camera = this.mediaWebcam
+    },
+    computed: {
+      ...Vuex.mapGetters(['mediaAudio', 'mediaWebcam'])
     },
     methods: {
+      saveChanges: function () {
+        this.$store.dispatch('mediaSetAudio', this.audio)
+        this.$store.dispatch('mediaSetWebcam', this.camera)
+      },
+      revertChanges: function () {
+        this.camera = ''
+        this.audio = ''
+      },
       checkAccessToken: function () {
         const token = window.localStorage.getItem('access_token')
         if (token) {
@@ -131,7 +148,7 @@
     template: /*html*/`
       <v-content>
 
-        <NavMenu target="/overlay" icon="keyboard_return" />
+        <NavMenu @click="revertChanges" target="/overlay" icon="keyboard_return" />
 
         <v-dialog raised v-model="twitchDialog" :value="twitchDialog" width="500">
           <v-card raised>
@@ -170,8 +187,8 @@
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer />
-                  <v-btn text to="/">back to overlay</v-btn>
-                  <v-btn color="primary">save</v-btn>
+                  <v-btn text @click="revertChanges" to="/">back to overlay</v-btn>
+                  <v-btn @click="saveChanges" color="primary">save</v-btn>
                 </v-card-actions>
               </v-card>
             </v-col>
