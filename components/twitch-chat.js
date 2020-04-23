@@ -21,20 +21,23 @@
         }
 
         let idx = 0
-        for (let emote of this.message.tags.emotes.split('/')) {
+        const sortedEmotes = this.message.tags.emotes.split('/').map(emote => {
           const [ id, range ] = emote.split(':')
-          const [ start, finish ] = range.split('-').map(x => parseInt(x))
-          const fragment = this.message.message.slice(idx, start)
+          const [ start, finish ] = range.split('-').map(n => parseInt(n))
+          return { id, start, finish }
+        }).sort((a,b) => a.start < b.start)
+        for (let emote of sortedEmotes) {
+          const fragment = this.message.message.slice(idx, emote.start)
           const img = document.createElement('img')
-          img.src = `https://static-cdn.jtvnw.net/emoticons/v1/${id}/1.0`
-          img.alt = img.title = this.message.message.slice(start, finish + 1)
+          img.src = `https://static-cdn.jtvnw.net/emoticons/v1/${emote.id}/1.0`
+          img.alt = img.title = this.message.message.slice(emote.start, emote.finish + 1)
           img.classList.add('emote')
-          if (start === 0 && finish === this.message.message.length - 1) {
+          if (emote.start === 0 && emote.finish === this.message.message.length - 1) {
             img.classList.add('big')
           }
           escapedMessage.appendChild(document.createTextNode(fragment))
           escapedMessage.appendChild(img)
-          idx = finish + 1
+          idx = emote.finish + 1
         }
         if (idx < this.message.message.length) {
           fragment = this.message.message.slice(idx, this.message.message.length)
