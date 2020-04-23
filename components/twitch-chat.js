@@ -2,15 +2,16 @@
   Vue.component('TwitchChatMessage', {
     props: ['message'],
     template: /*html*/`
-      <v-list-item subheader>
+      <v-list-item dense>
         <v-list-item-content>
           <v-list-item-title>
             <img v-for="badge in badges" :src="badge" :key="badge"
-            /><span v-if="badges.length > 0">&nbsp;</span><span :style="style">{{ message.username }}</span>
+            /><span v-if="badges.length > 0">&nbsp;</span><span :style="style">{{ message.tags['display-name'] }}</span>
           </v-list-item-title>
-          <v-list-item-content v-html="emotiMessage"/>
+          <v-list-item-content v-html="emotiMessage" />
         </v-list-item-content>
-      </v-list-item>`,
+      </v-list-item>
+    `,
     computed: {
       ...Vuex.mapGetters(['twitchChatBadges']),
       emotiMessage: function () {
