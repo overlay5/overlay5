@@ -36,6 +36,10 @@
           escapedMessage.appendChild(img)
           idx = finish + 1
         }
+        if (idx < this.message.message.length) {
+          fragment = this.message.message.slice(idx, this.message.message.length)
+          escapedMessage.appendChild(document.createTextNode(fragment))
+        }
 
         return escapedMessage.innerHTML
       },
