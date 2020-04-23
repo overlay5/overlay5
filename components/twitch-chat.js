@@ -20,12 +20,13 @@
           return escapedMessage.innerHTML
         }
 
-        let idx = 0
         const sortedEmotes = this.message.tags.emotes.split('/').map(emote => {
           const [ id, range ] = emote.split(':')
           const [ start, finish ] = range.split('-').map(n => parseInt(n))
           return { id, start, finish }
         }).sort((a,b) => a.start < b.start)
+
+        let idx = 0
         for (let emote of sortedEmotes) {
           const fragment = this.message.message.slice(idx, emote.start)
           const img = document.createElement('img')
@@ -39,6 +40,7 @@
           escapedMessage.appendChild(img)
           idx = emote.finish + 1
         }
+
         if (idx < this.message.message.length) {
           fragment = this.message.message.slice(idx, this.message.message.length)
           escapedMessage.appendChild(document.createTextNode(fragment))
