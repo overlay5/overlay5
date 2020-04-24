@@ -80,8 +80,6 @@
   left: calc(var(--real-px) * (2880 / 2));
   top: calc(var(--real-px) * (160 / 2));
   z-index: 10;
-  background: rgba(30, 30, 30, 0.8); /* #1E1E1E is vuetify "dark" bg */
-  border-radius: 10px;
   overflow: hidden;
   word-wrap: break-word;
   overflow-wrap: break-word;

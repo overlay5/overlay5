@@ -2,15 +2,13 @@
   Vue.component('TwitchChatMessage', {
     props: ['message'],
     template: /*html*/`
-      <v-list-item dense>
-        <v-list-item-content>
-          <v-list-item-title>
-            <img v-for="badge in badges" :src="badge" :key="badge"
-            /><span v-if="badges.length > 0">&nbsp;</span><span :style="style">{{ message.tags['display-name'] }}</span>
-          </v-list-item-title>
-          <v-list-item-content v-html="emotiMessage" />
-        </v-list-item-content>
-      </v-list-item>
+      <v-sheet class="my-1 py-1 px-2" elevation="3">
+        <span class="d-inline-block subtitle-2">
+          <img v-for="badge in badges" :src="badge" :key="badge"
+          /><span v-if="badges.length > 0">&nbsp;</span><span :style="style">{{ message.tags['display-name'] }}</span>
+        </>
+        <span class="d-inline-block body-2" v-html="emotiMessage" />
+      </v-sheet>
     `,
     computed: {
       ...Vuex.mapGetters(['twitchChatBadges']),
@@ -78,10 +76,21 @@
   Vue.component('TwitchChat', {
     props: ['height','width'],
     template: /*html*/`
-      <v-list dense :height='height' :width='width'>
-        <TwitchChatMessage v-for="message of twitchIrcMessages(15)" :message="message" :key="JSON.stringify(message)" />
-      </v-list>
+      <v-sheet color="transparent">
+        <component v-for="comp of chatComponents()" v-bind="comp" :key="comp.key" />
+      </v-sheet>
     `,
+    methods: {
+      chatComponents: function () {
+        const message = this.twitchIrcMessages(15)
+        const components = message.map(message => ({
+          message,
+          is: 'TwitchChatMessage',
+          key: message.tags.id,
+        }))
+        return components.sort((a,b) => a.message.tags['tmi-sent-ts'] > b.message.tags['tmi-sent-ts'])
+      }
+    },
     computed: {
       ...Vuex.mapGetters(['twitchIrcMessages']),
     }
