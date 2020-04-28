@@ -7,22 +7,25 @@
   }
 
   const TWITCH_WS_URI = 'wss://pubsub-edge.twitch.tv'
-  const TWITCH_PUBSUB_TOPICS = [
+  const TWITCH_PUBSUB_TOPICS = [ // official topics -- https://dev.twitch.tv/docs/pubsub
     'broadcast-settings-update',
     'celebration-events-v1',
     'channel-bits-badge-unlocks',
+    'channel-points-channel-v1',
     'channel-bits-events-v2',
-    'channel-bounty-board-events.cta',
+    // 'channel-bounty-board-events.cta',
     'channel-cheer-events-public-v1',
     'channel-drop-events',
     'channel-squad-updates',
     'channel-sub-gifts-v1',
     'channel-subscribe-events-v1',
+    // 'chat_moderator_actions',
     'community-points-channel-v1',
-    'extension-control',
+    // 'extension-control',
     'hype-train-events-v1',
-    'leaderboard-events-v1.bits-usage-by-channel-v1-53907383-MONTH',
-    'leaderboard-events-v1.sub-gifts-sent-53907383-MONTH',
+    // 'leaderboard-events-v1.bits-usage-by-channel-v1-53907383-MONTH',
+    // 'whispers',
+    // 'leaderboard-events-v1.sub-gifts-sent-53907383-MONTH',
     'polls',
     'pv-watch-party-events',
     'raid',
@@ -95,11 +98,8 @@
     }
   }
 
-  /**
-   *  For now, do not connect to PubSub WebSocket since it has nothing interesting in there
-   * */
-  // if (TWITCH_ACCESS_TOKEN) {
-  //   connect()
-  // }
+  if (TWITCH_ACCESS_TOKEN) {
+    connect()
+  }
 
 })()
