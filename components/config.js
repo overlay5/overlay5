@@ -30,7 +30,7 @@
     'channel_feed_read',
     'channel_read',
     // 'channel_stream',
-    // 'channel_subscriptions',
+    'channel_subscriptions',
     // 'chat_login', // <- Requires the client to be whitelisted
     // 'collections_edit',
     // 'communities_edit',
@@ -49,6 +49,7 @@
     'chat:read',
     'whispers:read',
     // 'whispers:edit',
+    'channel:read:redemptions',
 
   ].join(' ')
 
