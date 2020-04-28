@@ -4,9 +4,9 @@
     template: /*html*/`
       <v-sheet class="my-1 py-1 px-2" elevation="3">
         <span class="d-inline-block subtitle-2">
-          <img v-for="badge in badges" :src="badge" :key="badge"
-          /><span v-if="badges.length > 0">&nbsp;</span><span :style="style">{{ message.tags['display-name'] }}</span>
-        </>
+          <span v-for="badge in badges" :key="badge"><img :src="badge"/>&nbsp;</span>
+          <span :style="style">{{ message.tags['display-name'] }}</span>
+        </span>
         <span class="d-inline-block body-2" v-html="emotiMessage" />
       </v-sheet>
     `,
@@ -61,7 +61,7 @@
       badges: function () {
         if (this.message.tags && this.message.tags.badges) {
           try {
-            return this.message.tags.badges.split(' ')
+            return this.message.tags.badges.split(',')
               .map(badge => this.twitchChatBadges[badge])
           } catch (err) {
             // maybe chat badges did not load yet, or had an error loading
@@ -76,9 +76,7 @@
   Vue.component('TwitchChat', {
     props: ['height','width'],
     template: /*html*/`
-      <v-sheet color="transparent">
-        <component v-for="comp of chatComponents()" v-bind="comp" :key="comp.key" />
-      </v-sheet>
+      <div><component v-for="comp of chatComponents()" v-bind="comp" :key="comp.key" /></div>
     `,
     methods: {
       chatComponents: function () {
