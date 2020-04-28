@@ -55,17 +55,18 @@
     template: /*html*/`
       <v-content>
         <NavMenu target="/config" icon="settings" />
-        <div class="overlay">
+        <div id="overlay">
           <div id="overlay-particles"></div>
           <video id="overlay-capture" autoplay />
           <TwitchChat id="overlay-chat" />
-          <div id="overlay-webcam-container">
+          <v-sheet id="overlay-webcam-container" elevation="3">
             <video id="overlay-webcam" autoplay />
-          </div>
-          <Oscilloscope id="overlay-scope" />
-          <img id="overlay-monitor" src="/monitor.png"/>
+          </v-sheet>
+          <!-- <Oscilloscope id="overlay-scope" /> -->
+          <!-- <img id="overlay-monitor" src="/monitor.png"/> -->
           <TwitchViewers id="overlay-viewers" />
         </div>
+        <div id="overlay-top"></div>
       </v-content>
     `,
     activated: function() {

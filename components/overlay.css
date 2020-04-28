@@ -11,29 +11,25 @@
   width: calc(var(--real-px) * (3840/2));
   height: calc(var(--real-px) * (2160/2));
   z-index: 20;
+  background: url("/overlay-top.svg");
+  background-size: contain;
 }
 
 #overlay-webcam-container {
   position: absolute;
-  max-width: calc(var(--real-px) * (1920 / 5));
-  max-height: calc(var(--real-px) * (1000 / 5));
-  min-width: calc(var(--real-px) * (1920 / 5));
-  min-height: calc(var(--real-px) * (1080 / 5));
-  left: calc(var(--real-px) * (2920 / 2));
+  max-width: calc(var(--real-px) * (720 / 2));
+  min-width: calc(var(--real-px) * (720 / 2));
+  max-height: calc(var(--real-px) * (480 / 2));
+  min-height: calc(var(--real-px) * (480 / 2));
+  left: calc(var(--real-px) * (2880 / 2));
   top: calc(var(--real-px) * (1440 / 2));
-  z-index: 10;
   overflow: hidden;
+  z-index: 20;
 }
 
 #overlay-webcam {
-  max-width: calc(var(--real-px) * (1920 / 5));
-  max-height: calc(var(--real-px) * (1080 / 5));
-  min-width: calc(var(--real-px) * (1920 / 5));
-  min-height: calc(var(--real-px) * (1080 / 5));
-  filter: grayscale(60%) sepia(60%);
-  margin-left: -40px;
-  /* opacity: 0.75; */
-  z-index: 10;
+  max-height: calc(var(--real-px) * (480 / 2));
+  margin-left: calc(-1 * var(--real-px) * (120 / 2)); /* "cut" the frame a bit on the left */
 }
 
 #overlay-scope {
@@ -56,30 +52,27 @@
   min-height: calc(var(--real-px) * (1080 / 5));
   left: calc(var(--real-px) * (2880 / 2));
   top: calc(var(--real-px) * (1400 / 2));
-  z-index: 20;
+  z-index: 10;
 }
 
 #overlay-viewers {
   position: absolute;
   left: calc(var(--real-px) * (2880 / 2));
-  top: calc(var(--real-px) * (1160 / 2));
+  top: calc(var(--real-px) * (1200 / 2));
+  margin-top: calc(var(--real-px) * 12);
   background: rgba(30, 30, 30, 0.8); /* #1E1E1E is vuetify "dark" bg */
-  z-index: 10;
+  z-index: 12;
 }
 
 #overlay-chat {
   position: absolute;
-  /* max-width: calc(var(--real-px) * (800 / 2));
-  max-height: calc(var(--real-px) * (800 / 2));
-  min-width: calc(var(--real-px) * (800 / 2));
-  min-height: calc(var(--real-px) * (800 / 2)); */
-  max-width: calc(var(--real-px) * (768 / 2));
-  min-width: calc(var(--real-px) * (768 / 2));
+  max-width: calc(var(--real-px) * (720 / 2));
+  min-width: calc(var(--real-px) * (720 / 2));
   min-height: calc(var(--real-px) * (960 / 2));
   max-height: calc(var(--real-px) * (960 / 2));
   left: calc(var(--real-px) * (2880 / 2));
-  top: calc(var(--real-px) * (160 / 2));
-  z-index: 10;
+  top: calc(var(--real-px) * (240 / 2));
+  z-index: 12;
   overflow: hidden;
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -113,12 +106,12 @@
 
 #overlay-capture {
   position: absolute;
-  max-width: calc(var(--real-px) * (3760 / 2));
-  max-height: calc(var(--real-px) * (2080 / 2));
-  min-width: calc(var(--real-px) * (3760 / 2));
-  min-height: calc(var(--real-px) * (2080 / 2));
-  left: calc(var(--real-px) * (40 / 2));
-  top: calc(var(--real-px) * (40 / 2));
+  max-width: calc(var(--real-px) * (3840 / 2));
+  max-height: calc(var(--real-px) * (2160 / 2));
+  min-width: calc(var(--real-px) * (3840 / 2));
+  min-height: calc(var(--real-px) * (2160 / 2));
+  left: 0; /* calc(var(--real-px) * (40 / 2)); */
+  top: 0; /* calc(var(--real-px) * (40 / 2)); */
   z-index: 10;
   mix-blend-mode: screen;
 }
