@@ -18,7 +18,7 @@
   const TWITCH_FOLLOWERS = 'twitch/followers-push'
 
   const state = {
-    twitchViewers: null,
+    twitchViewers: 0,
     twitchEvents: [],
     twitchIRC: [],
     twitchRaids: [],
