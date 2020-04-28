@@ -1,4 +1,5 @@
 (function () {
+  let TWITCH_ACCESS_TOKEN = window.localStorage.getItem('access_token')
   const store = window.vueStore
 
   if (typeof window.PUBSUB_HANDLERS === 'undefined') {
@@ -45,11 +46,10 @@
   }
 
   function listen(topics) {
-    let auth_token = window.localStorage.getItem('access_token')
     const message = {
       type: 'LISTEN',
       nonce: nonce(15),
-      data: { topics, auth_token, }
+      data: { topics, auth_token: TWITCH_ACCESS_TOKEN, }
     }
     ws.send(JSON.stringify(message))
   }
@@ -95,6 +95,11 @@
     }
   }
 
-  connect()
+  /**
+   *  For now, do not connect to PubSub WebSocket since it has nothing interesting in there
+   * */
+  // if (TWITCH_ACCESS_TOKEN) {
+  //   connect()
+  // }
 
 })()

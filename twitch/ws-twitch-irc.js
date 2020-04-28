@@ -1,4 +1,5 @@
 (function () {
+  const TWITCH_ACCESS_TOKEN = window.localStorage.getItem('access_token')
   const TWITCH_IRC_URI = 'wss://irc-ws.chat.twitch.tv'
   const TWITCH_IRC_PROTO = 'irc'
   const CLIENT_USERNAME = 'kesor6'
@@ -82,9 +83,8 @@
   }
 
   function authenticate() {
-    const token = window.localStorage.getItem('access_token')
     ws.send('CAP REQ :twitch.tv/tags twitch.tv/commands twitch.tv/membership')
-    ws.send(`PASS oauth:${token}`)
+    ws.send(`PASS oauth:${TWITCH_ACCESS_TOKEN}`)
     ws.send(`NICK ${CLIENT_USERNAME}`)
     ws.send(`JOIN #${CLIENT_USERNAME}`)
   }
@@ -160,6 +160,8 @@
     }
   }
 
-  connect()
+  if (TWITCH_ACCESS_TOKEN) {
+    connect()
+  }
 
 })()
