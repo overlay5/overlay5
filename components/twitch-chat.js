@@ -23,7 +23,7 @@
           const [ id, range ] = emote.split(':')
           const [ start, finish ] = range.split('-').map(n => parseInt(n))
           return { id, start, finish }
-        }).sort((a,b) => a.start < b.start)
+        }).sort((a,b) => a.start - b.start)
 
         let idx = 0
         for (let emote of sortedEmotes) {
@@ -32,7 +32,7 @@
           img.src = `https://static-cdn.jtvnw.net/emoticons/v1/${emote.id}/1.0`
           img.alt = img.title = this.message.message.slice(emote.start, emote.finish + 1)
           img.classList.add('emote')
-          if (emote.start === 0 && emote.finish === this.message.message.length - 1) {
+          if (this.message.tags['emote-only'] === 1) {
             img.classList.add('big')
           }
           escapedMessage.appendChild(document.createTextNode(fragment))
