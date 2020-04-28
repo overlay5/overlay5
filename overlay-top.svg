@@ -1,93 +1,21 @@
 <?xml version="1.0" standalone="no"?>
-<svg width="3840" height="2160" version="1.1" xmlns="http://www.w3.org/2000/svg">
-  <style>
-  svg {
-    stroke-width: 0;
-    fill: none;
-  }
-  .bg {
-    fill: rgba(127,127,0,0.5);
-    fill: darkblue;
-  }
-  .box {
-    fill: 0;
-    fill-opacity: 0;
-    stroke-width: 20;
-    stroke: rgba(127,127,127,0.5);
-  }
-  .label {
-    fill: rgba(0,0,255,1);
-    text-anchor: topleft;
-    font-size: 40px;
-    font-weight: bold;
-    font-family: "Fira Code";
-  }
-  </style>
-  <defs>
-    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-      <path d="M 40,0 L 0 0 0 40 40 40 Z" fill="rgba(255,0,0,0.1)" stroke="white" stroke-width="0.5"/>
-    </pattern>
-  </defs>
-
-  <!-- <rect class="bg" x="0" y="0" width="3840" height="2160"/> -->
-
-  <!-- <rect id="canvas" class="box"   x="40"   y="40"   width="2920" height="1640"/> -->
-  <rect id="chat"   class="box"   x="3000" y="40"   width="800"  height="1440"/>
-  <rect id="camera" class="box"   x="3000" y="1520" width="800"  height="600"/>
-  <rect id="scope"  class="box"   x="40"   y="1720" width="2920" height="200"/>
-  <rect id="box1"   class="box"   x="40"   y="1960" width="700"  height="160"/>
-  <rect id="box2"   class="box"   x="780"  y="1960" width="700"  height="160"/>
-  <rect id="box3"   class="box"   x="1520" y="1960" width="700"  height="160"/>
-  <rect id="box4"   class="box"   x="2260" y="1960" width="700"  height="160"/>
-
-  <!-- <text id="label1" class="label" x="40"  y="1966" width="700">recent follower</text>
-  <text id="label2" class="label" x="780" y="1966" width="700">followers</text> -->
-
-  <!-- <rect width="100%" height="100%" fill="url(#grid)" /> -->
-
-  <!-- <path id="canvasOLD" stroke-width="5" stroke="rgba(255,0,0,1)" d="
-    M80,40 L2920,40 Q2920,80,2960,80 L2960,1640 Q2920,1640,2920,1680 L80,1680 Q80,1640,40,1640 L40,80 Q80,80,80,40 Z
-  "/> -->
-
-  <defs>
-    <linearGradient id="linear" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%"   stop-color="#05a"/>
-      <stop offset="100%" stop-color="#0a5"/>
-    </linearGradient>
-    <linearGradient id="g2" x1="0%" y1="30%">
-        <stop offset="0%" stop-color="royalblue" >
-            <animate id="a5" attributeName="stop-color" values="royalblue; gray" begin="0; a8.end" dur="2s" />
-            <animate id="a6" attributeName="stop-color" values="gray; orange" begin="a5.end" dur="2s" />
-            <animate id="a7" attributeName="stop-color" values="orange; gray" begin="a6.end" dur="2s" />
-            <animate id="a8" attributeName="stop-color" values="gray; royalblue" begin="a7.end" dur="2s" />
-        </stop>
-        <stop offset="50%" stop-color="gray" >
-            <animate id="a9" attributeName="stop-color" values="gray; orange" begin="0; a12.end" dur="2s" />
-            <animate id="a10" attributeName="stop-color" values="orange; gray" begin="a9.end" dur="2s" />
-            <animate id="a11" attributeName="stop-color" values="gray; royalblue" begin="a10.end" dur="2s" />
-            <animate id="a12" attributeName="stop-color" values="royalblue; gray" begin="a11.end" dur="2s" />
-        </stop>
-        <stop offset="100%" stop-color="orange" >
-            <animate id="a13" attributeName="stop-color" values="orange; gray" begin="0; a16.end" dur="2s" />
-            <animate id="a14" attributeName="stop-color" values="gray; royalblue" begin="a13.end" dur="2s" />
-            <animate id="a15" attributeName="stop-color" values="royalblue; gray" begin="a14.end" dur="2s" />
-            <animate id="a16" attributeName="stop-color" values="gray; orange" begin="a15.end" dur="2s" />
-        </stop>
-    </linearGradient>
-  </defs>
-
-  <path id="canvas" stroke-width="20" stroke-opacity="0.5" stroke="url(#g2)" stroke-linejoin="round">
-    <animate
-      attributeName="d"
-      values="
-        M80,40 L2920,40 Q2960,40,2960,80 L2960,1640 Q2960,1680,2920,1680 L80,1680 Q40,1680,40,1640 L40,80 Q40,40,80,40 Z;
-      "
-      begin="0s"
-      dur="5s"
-      restart="always"
-      repeatCount="indefinite"
-      />
-      <!-- M80,40 L2920,40 Q2920,80,2960,80 L2960,1640 Q2920,1640,2920,1680 L80,1680 Q80,1640,40,1640 L40,80 Q80,80,80,40 Z; -->
-  </path>
-
+<svg width="3840" height="2160" xmlns="http://www.w3.org/2000/svg">
+  <style>svg { stroke-width: 0; fill: none; }</style>
+  <!-- 0, 120, 240, 360, 480, 600, 720, 840, 960, 1080, 1200, 1320, 1440, 1560, 1680, 1800, 1920, 2040, 2160, |||, 2280, 2400, 2520, 2640, 2760, 2880, 3000, 3120, 3240, 3360, 3480, 3600, 3720, 3840 -->
+  <!-- 0, 240, 480, 720, 960, 1200, 1440, 1680, 1920, 2160, |||, 2400, 2640, 2880, 3120, 3360, 3600, 3840 -->
+  <rect width="24" height="24" fill="#FF0000">
+    <animateMotion dur="23s" repeatCount="indefinite" path="M2880,1438 l696,0 l0,456 l-696,0 l0,-456 Z"/>
+  </rect>
+  <rect width="24" height="24" fill="#56423d">
+    <animateMotion dur="29s" repeatCount="indefinite" path="M2880,1438 l696,0 l0,456 l-696,0 l0,-456 Z"/>
+  </rect>
+  <rect width="24" height="24" fill="#006bd1">
+    <animateMotion dur="31s" repeatCount="indefinite" path="M2880,1438 l696,0 l0,456 l-696,0 l0,-456 Z"/>
+  </rect>
+  <rect width="24" height="24" fill="#00a0ff">
+    <animateMotion dur="37s" repeatCount="indefinite" path="M2880,1438 l696,0 l0,456 l-696,0 l0,-456 Z"/>
+  </rect>
+  <rect width="24" height="24" fill="#bea6a0">
+    <animateMotion dur="41s" repeatCount="indefinite" path="M2880,1438 l696,0 l0,456 l-696,0 l0,-456 Z"/>
+  </rect>
 </svg>
