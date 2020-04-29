@@ -9,7 +9,7 @@
     }),
     template: /*html*/`
     <v-sheet class="px-2 d-inline-flex flex-column-reverse align-end" elevation="3">
-      <span class="grey--text text--lighten-2">{{ finalText }} &bull;<span class="grey--text text--lighten-1">{{ interimText }}</span></span>
+      <span class="grey--text text--lighten-2">{{ finalText }} &bull; <span class="grey--text text--lighten-1">{{ interimText }}</span></span>
     </v-sheet>
     `,
     methods: {
