@@ -9,7 +9,7 @@
     }),
     template: /*html*/`
     <v-sheet class="px-2 d-inline-flex flex-column-reverse align-end" elevation="3">
-      <span class="grey--text text--lighten-2">{{ finalText }}<span class="grey--text text--lighten-1">{{ interimText }}</span></span>
+      <span class="grey--text text--lighten-2">{{ finalText }} &bull;<span class="grey--text text--lighten-1">{{ interimText }}</span></span>
     </v-sheet>
     `,
     methods: {
@@ -17,10 +17,20 @@
         let final = "", interim = ""
         for (let i = 0; i < event.results.length; ++i) {
           if (event.results[i].isFinal) {
-            final += event.results[i][0].transcript + ' • '
+            final += event.results[i][0].transcript
           } else {
             interim += event.results[i][0].transcript
           }
+        }
+        if (final.match(/команда язык английский$/i)) {
+          recognition.lang = 'en-US'
+          recognition.stop()
+          final += " !EN! "
+        }
+        if (final.match(/command language russian$/i)) {
+          recognition.lang = 'ru-RU'
+          recognition.stop()
+          final += " !RU! "
         }
         this.finalText = final
         this.interimText = interim
@@ -28,6 +38,7 @@
       startCaptions: function () {
         recognition.continuous = true
         recognition.interimResults = true
+        recognition.lang = 'en-US'
         recognition.onresult = this.recognitionResult
         recognition.onend = () => {
           console.log('restart recognition in 1s')
