@@ -1,84 +1,18 @@
 (function(){
   Vue.component('Overlay', {
-    data: () => ({
-      webcamStream: null,
-      windowCaptureStream: null,
-    }),
-    watch: {
-      webcamStream: function () { this.updateWebcam() },
-      windowCaptureStream: function () { this.updateWindowCapture() },
-      mediaWebcam: async function () {
-        this.webcamStream = await navigator.mediaDevices.getUserMedia({
-          video: {
-            deviceId: { exact: this.mediaWebcam },
-            width: { ideal: 1920 },
-            height: { ideal: 1020 }
-          }
-        })
-      }
-    },
-    methods: {
-      integrateVideo: async function () {
-        try {
-          this.webcamStream = await navigator.mediaDevices.getUserMedia({
-            video: {
-              deviceId: { exact: this.mediaWebcam },
-              width: { ideal: 1920 },
-              height: { ideal: 1020 }
-            }
-          })
-        } catch (err) {
-          console.error('Failed to capture the web camera.', { err })
-        }
-        try {
-          this.windowCaptureStream = await navigator.mediaDevices.getDisplayMedia({
-            video: {
-              width: { ideal: 3840 },
-              height: { ideal: 2160 }
-            }
-          })
-        } catch (err) {
-          console.error('Failed to capture the screen display or window.', { err })
-        }
-      },
-      updateWebcam: function () {
-        if (this.webcamStream) {
-          document.getElementById('overlay-webcam').srcObject = this.webcamStream
-        }
-      },
-      updateWindowCapture: function () {
-        if (this.windowCaptureStream) {
-          document.getElementById('overlay-capture').srcObject = this.windowCaptureStream
-        }
-      }
-    },
     template: /*html*/`
       <v-content>
         <NavMenu target="/config" icon="settings" />
         <div id="overlay">
-          <div id="overlay-particles"></div>
-          <video id="overlay-capture" autoplay />
+          <Particles id="overlay-particles"/>
+          <WebrtcWindowCapture id="overlay-capture"/>
           <TwitchChat id="overlay-chat" />
-          <v-sheet id="overlay-webcam-container" elevation="3">
-            <video id="overlay-webcam" autoplay />
-          </v-sheet>
-          <!-- <Oscilloscope id="overlay-scope" /> -->
-          <!-- <img id="overlay-monitor" src="/monitor.png"/> -->
-          <TwitchViewers id="overlay-viewers" />
+          <WebrtcWebcam id="overlay-webcam"/>
+          <TwitchViewers id="overlay-viewers"/>
+          <AudioCaptions id="overlay-captions"/>
         </div>
         <div id="overlay-top"></div>
       </v-content>
-    `,
-    activated: function() {
-      this.updateWebcam()
-      this.updateWindowCapture()
-    },
-    computed: {
-      ...Vuex.mapGetters(['mediaWebcam'])
-    },
-    created: async function() {
-      await this.integrateVideo()
-      particlesJS.load('overlay-particles', 'particles.json')
-    }
+    `
   })
 })()
