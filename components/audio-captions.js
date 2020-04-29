@@ -1,5 +1,6 @@
 (function(){
-  const recognition = new (window['SpeechRecognition'] || window['webkitSpeechRecognition'])
+  window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition
+  const recognition = new window.SpeechRecognition
 
   Vue.component('AudioCaptions', {
     data: () => ({
@@ -28,6 +29,13 @@
         recognition.continuous = true
         recognition.interimResults = true
         recognition.onresult = this.recognitionResult
+        recognition.onend = () => {
+          console.log('restart recognition in 1s')
+          setTimeout(function () { recognition.start() }, 1000)
+        }
+        recognition.onerror = (err) => {
+          console.error('recognition error', err)
+        }
         recognition.start()
       }
     },
