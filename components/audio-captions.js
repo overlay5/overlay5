@@ -1,6 +1,5 @@
 (function(){
-  window.SpeechRecognition = window.webkitSpeechRecognition || window.SpeechRecognition
-  const recognition = new window.SpeechRecognition
+  const recognition = new (window.webkitSpeechRecognition || window.SpeechRecognition)
 
   Vue.component('AudioCaptions', {
     data: () => ({
@@ -22,26 +21,20 @@
             interim += event.results[i][0].transcript
           }
         }
-        if (final.match(/команда язык английский$/i)) {
-          recognition.lang = 'en-US'
-          recognition.stop()
-          final += " !EN! "
+        for (let [cmd, fn] of Object.entries(window.VOICE_COMMANDS_RE)) {
+          if (RegExp(cmd + '$', 'ig').test(interim)) {
+            fn(recognition)
+          }
         }
-        if (final.match(/command language russian$/i)) {
-          recognition.lang = 'ru-RU'
-          recognition.stop()
-          final += " !RU! "
-        }
-        this.finalText = final
+        this.finalText = ' | ' + final
         this.interimText = interim
       },
       startCaptions: function () {
         recognition.continuous = true
         recognition.interimResults = true
         recognition.lang = 'en-US'
-        recognition.onresult = this.recognitionResult
+        recognition.onresult = this.recognitionResult.bind(this)
         recognition.onend = () => {
-          console.log('restart recognition in 1s')
           setTimeout(function () { recognition.start() }, 1000)
         }
         recognition.onerror = (err) => {
