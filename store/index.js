@@ -84,6 +84,7 @@
   const actions = {
     twitchViewersSet: ({ commit }, viewers) => commit(TWITCH_VIEWERS, viewers),
     twitchEventsPush: ({ commit }, event) => commit(TWITCH_PUBSUB_EVENT, event),
+    twitchFollowersPush: ({ commit }, event) => commit(TWITCH_FOLLOWERS, event),
     twitchIrcPush: ({ commit }, message) => commit(TWITCH_IRC_PRIVMSG, message),
     twitchIrcHideUser: ({ commit }, user) => commit(TWITCH_IRC_CLEARCHAT, user),
     twitchIrcHideMessage: ({ commit }, messageID) => commit(TWITCH_IRC_CLEARMSG, messageID),

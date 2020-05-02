@@ -162,6 +162,8 @@
 
   if (TWITCH_ACCESS_TOKEN) {
     connect()
+  } else {
+    console.error('Access token is missing; Skipping Twitch WebSocket-IRC handler.')
   }
 
 })()
