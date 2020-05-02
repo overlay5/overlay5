@@ -34,7 +34,9 @@
       },
       updateWebcam: function () {
         if (this.webcamStream) {
-          document.getElementById(this.id).srcObject = this.webcamStream
+          const webcamVideoNode = document.getElementById(this.id)
+          if (webcamVideoNode)
+            webcamVideoNode.srcObject = this.webcamStream
         }
       }
     },
