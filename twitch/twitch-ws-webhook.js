@@ -71,15 +71,28 @@
     const wsURI = `wss://${TWITCH_SOCKETHOOK_HOSTNAME}/socket/${TWITCH_SOCKETHOOK_NS}`
     let pingTimer = 0
     ws = new WebSocket(wsURI)
+    window.webhookWS = ws
+    let subscribed = false
 
     function heartbeat() {
       clearTimeout(pingTimer)
-      pingTimer = setTimeout(() => { ws.close() }, 30000 + 1000)
+      pingTimer = setTimeout(() => {
+        // the 'ping' ws frame is hidden by browser
+        // and just changes the socket readyState
+        if (ws.readyState !== WebSocket.OPEN) {
+          ws.close()
+        } else {
+          heartbeat()
+        }
+      }, 30000 + 1000)
     }
 
     ws.onopen = function (event) {
       heartbeat()
-      topicsSubscribe()
+      if (!subscribed) {
+        topicsSubscribe()
+        subscribed = true
+      }
     }
 
     ws.onerror = function () {
