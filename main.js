@@ -4,8 +4,8 @@
   })
 
   const vue = new Vue({
-    store: window.vueStore,
-    router: window.vueRouter,
+    store: window.o5.store,
+    router: window.o5.router,
     vuetify,
     template: /*html*/`
       <div id="app">
@@ -22,5 +22,7 @@
     vue.$mount('#app')
   }
 
-  window.vue = vue
+  window.o5 = window.o5 || {}
+  window.o5.vue = vue
+  window.o5.vuetify = vuetify
 })()

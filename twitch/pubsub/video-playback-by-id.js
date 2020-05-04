@@ -1,5 +1,5 @@
 (function(){
-  store = window.vueStore
+  store = window.o5.store
 
   if (typeof window.PUBSUB_HANDLERS === 'undefined') {
     window.PUBSUB_HANDLERS = []

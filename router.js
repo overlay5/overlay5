@@ -1,5 +1,6 @@
 (function(){
-  window.vueRouter = new VueRouter({
+  window.o5 = window.o5 || {}
+  window.o5.router = new VueRouter({
     mode: 'history',
     routes: [{
       path: '/',

@@ -41,7 +41,7 @@
   ]
 
   const reconnectInterval = 5000 * 3 // ms to wait before reconnect
-  const store = window.vueStore
+  const store = window.o5.store
   let ws
 
   async function twitchApiHelix(uri, options) {

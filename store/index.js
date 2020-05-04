@@ -94,8 +94,8 @@
     mediaSetWebcam: ({ commit }, deviceId) => commit(MEDIA_WEBCAM_SET, deviceId),
   }
 
-  window.vueStore = new Vuex.Store({
-    plugins: [ window.VuexLocalStorage ],
+  window.o5 = window.o5 || {}
+  window.o5.store = new Vuex.Store({
     state,
     getters,
     mutations,

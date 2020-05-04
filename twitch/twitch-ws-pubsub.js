@@ -1,6 +1,6 @@
 (function () {
   let TWITCH_ACCESS_TOKEN = window.localStorage.getItem('access_token')
-  const store = window.vueStore
+  const store = window.o5.store
 
   if (typeof window.PUBSUB_HANDLERS === 'undefined') {
     window.PUBSUB_HANDLERS = []
