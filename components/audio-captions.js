@@ -38,7 +38,9 @@
           setTimeout(function () { recognition.start() }, 1000)
         }
         recognition.onerror = (err) => {
-          console.error('recognition error', err)
+          if (err.error !== 'no-speech') {
+            console.error('recognition error', err)
+          }
         }
         recognition.start()
       }
