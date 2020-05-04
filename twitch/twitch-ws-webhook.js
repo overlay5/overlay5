@@ -105,13 +105,14 @@
       setTimeout(connect, reconnectInterval)
     }
 
-    ws.onmessage = function (event) {
+    ws.onmessage = function (message) {
       heartbeat()
       // TODO: test the `x-hub-signature` header for our secret
       // 'x-hub-signature': 'sha256=5d56b8306a65ccb16cf8bea36e5de8fe8d0335a8662bb5626eb6b00ddb4beffb'
+      const event = JSON.parse(message)
       try {
         const apiURI = Object.fromEntries(
-          event.headers['link'].split(', ').map(x => x.split('; ').reverse())
+          event.headers.link.split(', ').map(x => x.split('; ').reverse())
         )['rel="self"'].replace(/[<>]/g,'').split('?')[0]
         const handler = apiURI.replace(/^https?:\/\/api.twitch.tv\/helix/, '').replace('/','-')
         window.WEBHOOK_HANDLERS[handler](event)
