@@ -119,7 +119,7 @@
             commandIdx = data.indexOf(' ', userIdx + 1),
             channelIdx = data.indexOf(' ', commandIdx + 1),
             messageIdx = data.indexOf(':', channelIdx + 1)
-      parsed.tags = data.slice(0, tagIdx)
+      parsed.tags = data.slice(1, tagIdx)
       if (typeof parsed.tags === 'string') {
         parsed.tags = Object.fromEntries(parsed.tags.split(';').map(t => t.split('=')))
       }
