@@ -14,23 +14,26 @@
       ...Vuex.mapGetters(['twitchChatBadges']),
       emotiMessage: function () {
         const escapedMessage = document.createElement('span')
+        let messageText = this.message.message.replace(/\x01ACTION (.*)\x01/, '$1')
         if (!this.message.tags.emotes || this.message.tags.emotes.length <= 0) {
-          escapedMessage.textContent = this.message.message
+          escapedMessage.textContent = messageText
           return escapedMessage.innerHTML
         }
 
         const sortedEmotes = this.message.tags.emotes.split('/').map(emote => {
           const [ id, range ] = emote.split(':')
-          const [ start, finish ] = range.split('-').map(n => parseInt(n))
-          return { id, start, finish }
-        }).sort((a,b) => a.start - b.start)
+          const ranges = range.split(',').map(pos => pos.split('-').map(n => parseInt(n,10)))
+          return ranges.map(range => ({ id, start: range[0], finish: range[1] }))
+          // const [ start, finish ] = range.split('-').map(n => parseInt(n))
+          // return { id, start, finish }
+        }).flat().sort((a,b) => a.start - b.start)
 
         let idx = 0
         for (let emote of sortedEmotes) {
-          const fragment = this.message.message.slice(idx, emote.start)
+          const fragment = messageText.slice(idx, emote.start)
           const img = document.createElement('img')
           img.src = `https://static-cdn.jtvnw.net/emoticons/v1/${emote.id}/1.0`
-          img.alt = img.title = this.message.message.slice(emote.start, emote.finish + 1)
+          img.alt = img.title = messageText.slice(emote.start, emote.finish + 1)
           img.classList.add('emote')
           if (this.message.tags['emote-only'] === 1) {
             img.classList.add('big')
@@ -40,8 +43,8 @@
           idx = emote.finish + 1
         }
 
-        if (idx < this.message.message.length) {
-          fragment = this.message.message.slice(idx, this.message.message.length)
+        if (idx < messageText.length) {
+          fragment = messageText.slice(idx, messageText.length)
           escapedMessage.appendChild(document.createTextNode(fragment))
         }
 
