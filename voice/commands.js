@@ -39,13 +39,13 @@
 
   function lightDesktopToggle(recognition) {
     if (debounceCommand()) return;
-    fetch('http://sonoff-desktop/cm?cmnd=Power+TOGGLE', { mode: 'no-cors' })
+    fetch('http://sonoff-xxx/cm?cmnd=Power+TOGGLE', { mode: 'no-cors' }).then(() => console.log('toggle desktop light'))
     return ' !LD! '
   }
 
   function lightCeilingToggle(recognition) {
     if (debounceCommand()) return;
-    fetch('http://sonoff-ceiling/cm?cmnd=Power+TOGGLE', { mode: 'no-cors' })
+    fetch('http://sonoff-ceiling/cm?cmnd=Power+TOGGLE', { mode: 'no-cors' }).then(() => console.log('toggle ceiling light'))
     return ' !LC! '
   }
 
