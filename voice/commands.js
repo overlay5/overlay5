@@ -8,10 +8,11 @@
   function debounceCommand() {
     const now = new Date()
     // check how many ms passed since last command
-    if (now - lastCommand > 2500) {
+    if (now - lastCommand > 1000) {
       lastCommand = now
       return true // enough time from last command
     }
+    console.log('debounced!')
     return false // don't allow the command to pass
   }
 
