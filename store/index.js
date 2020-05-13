@@ -39,22 +39,14 @@
     twitchIrcMessages: state =>
       (number = 10) =>
         state.twitchIRC.slice(state.twitchIRC.length - number, state.twitchIRC.length)
-          .filter(message => !(message.hidden)),
+          .filter(message => !(message.hidden === true || /^nightbot/i.test(message.username) || /^!\w+$/i.test(message.message))),
     mediaAudio: state => state.mediaAudio,
     mediaWebcam: state => state.mediaWebcam,
   }
 
   const mutations = {
     mutateTheChat: (state) => {
-      state.twitchIRC = state.twitchIRC.map(msg => {
-        if (typeof msg.tags === 'string') {
-          msg.tags = Object.fromEntries(msg.tags.split(';').map(t => t.split('=')))
-        }
-        if (msg.tags instanceof Array) {
-          msg.tags = Object.fromEntries(msg.tags)
-        }
-        return msg
-      })
+      state.twitchIRC = state.twitchIRC.filter(x => x)
     },
     [TWITCH_VIEWERS]: (state, payload) => state.twitchViewers = payload,
     [TWITCH_FOLLOWERS]: (state, payload) => state.twitchFollowers.push(payload),
