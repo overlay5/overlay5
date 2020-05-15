@@ -64,11 +64,13 @@
       if (msg.username === user) {
         msg.hidden = true
       }
+      return msg
     }),
     [TWITCH_IRC_CLEARMSG]: (state, messageID) => state.twitchIRC = state.twitchIRC.map(msg => {
       if (msg.tags.id === messageID) {
         msg.hidden = true
       }
+      return msg
     }),
     [TWITCH_IRC_PRIVMSG]: (state, payload) => state.twitchIRC.push(payload),
     [TWITCH_IRC_RAID_EVENT]: (state, payload) => state.twitchRaids.push(payload),
