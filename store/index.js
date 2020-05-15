@@ -13,6 +13,7 @@
   const TWITCH_CHAT_SET_BADGES = 'twitch-irc/badges-set'
   const MEDIA_AUDIO_SET = 'media/audio-set'
   const MEDIA_WEBCAM_SET = 'media/webcam-set'
+  const MEDIA_RECOGNITION_SET = 'media/recognition-set'
 
   const TWITCH_VIEWERS = 'twitch/viewers-set'
   const TWITCH_FOLLOWERS = 'twitch/followers-push'
@@ -25,6 +26,7 @@
     twitchChatBadges: [],
     mediaAudio: null,
     mediaWebcam: null,
+    mediaRecognition: true,
   }
 
   const getters = {
@@ -42,12 +44,14 @@
           .filter(message => !(message.hidden === true || /^nightbot/i.test(message.username) || /^!\w+$/i.test(message.message))),
     mediaAudio: state => state.mediaAudio,
     mediaWebcam: state => state.mediaWebcam,
+    mediaRecognition: state => state.mediaRecognition,
   }
 
   const mutations = {
     mutateTheChat: (state) => {
       state.twitchIRC = state.twitchIRC.filter(x => x)
     },
+    [MEDIA_RECOGNITION_SET]: (state, payload) => state.mediaRecognition = payload,
     [TWITCH_VIEWERS]: (state, payload) => state.twitchViewers = payload,
     [TWITCH_FOLLOWERS]: (state, payload) => state.twitchFollowers.push(payload),
     [TWITCH_PUBSUB_EVENT]: (state, payload) => {
@@ -84,6 +88,7 @@
     twitchChatBadges: ({ commit }, badges) => commit(TWITCH_CHAT_SET_BADGES, badges),
     mediaSetAudio: ({ commit }, deviceId) => commit(MEDIA_AUDIO_SET, deviceId),
     mediaSetWebcam: ({ commit }, deviceId) => commit(MEDIA_WEBCAM_SET, deviceId),
+    mediaToggleRecognition: ({ commit, state }) => commit(MEDIA_RECOGNITION_SET, !state.mediaRecognition),
   }
 
   window.o5 = window.o5 || {}

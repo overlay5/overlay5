@@ -89,9 +89,10 @@
       this.camera = this.mediaWebcam
     },
     computed: {
-      ...Vuex.mapGetters(['mediaAudio', 'mediaWebcam'])
+      ...Vuex.mapGetters(['mediaAudio', 'mediaWebcam', 'mediaRecognition'])
     },
     methods: {
+      ...Vuex.mapActions(['mediaToggleRecognition']),
       saveChanges: function () {
         this.$store.dispatch('mediaSetAudio', this.audio)
         this.$store.dispatch('mediaSetWebcam', this.camera)
@@ -184,6 +185,7 @@
                     <v-spacer />
                     <v-select v-model="camera" :items="cameras" item-text="label" item-value="deviceId" prepend-icon="camera_alt" label="Select the camera device to use:"/>
                     <v-select v-model="audio"  :items="audioin" item-text="label" item-value="deviceId" prepend-icon="mic" label="Select the microphone device to use:"/>
+                    <v-switch :value="mediaRecognition" @change="mediaToggleRecognition" prepend-icon="record_voice_over" label="Recognition:"/>
                   </v-form>
                 </v-card-text>
                 <v-card-actions>
