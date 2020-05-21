@@ -12,6 +12,7 @@
           <TwitchChat id="overlay-chat" />
           <WebrtcWebcam id="overlay-webcam"/>
           <TwitchViewers id="overlay-viewers"/>
+          <Time id="overlay-time"/>
           <AudioCaptions v-if="mediaRecognition" id="overlay-captions"/>
         </div>
         <div id="overlay-top"></div>

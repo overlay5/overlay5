@@ -88,6 +88,16 @@
   z-index: 12;
 }
 
+#overlay-time {
+  position: absolute;
+  right: calc(var(--real-px) * (240 / 2));
+  top: calc(var(--real-px) * (1200 / 2));
+  margin-top: calc(var(--real-px) * 12);
+  background: rgba(30, 30, 30, 0.8); /* #1E1E1E is vuetify "dark" bg */
+  z-index: 12;
+  font-family: monospace;
+}
+
 #overlay-chat {
   position: absolute;
   max-width: calc(var(--real-px) * (720 / 2));
