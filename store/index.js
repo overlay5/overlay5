@@ -16,9 +16,10 @@
   const MEDIA_RECOGNITION_SET = 'media/recognition-set'
 
   const TWITCH_VIEWERS = 'twitch/viewers-set'
-  const TWITCH_FOLLOWERS = 'twitch/followers-push'
+  const TWITCH_FOLLOWER = 'twitch/follower-push'
 
   const state = {
+    twitchFollowers: [],
     twitchViewers: 0,
     twitchEvents: [],
     twitchIRC: [],
@@ -53,7 +54,7 @@
     },
     [MEDIA_RECOGNITION_SET]: (state, payload) => state.mediaRecognition = payload,
     [TWITCH_VIEWERS]: (state, payload) => state.twitchViewers = payload,
-    [TWITCH_FOLLOWERS]: (state, payload) => state.twitchFollowers.push(payload),
+    [TWITCH_FOLLOWER]: (state, payload) => state.twitchFollowers.push(payload),
     [TWITCH_PUBSUB_EVENT]: (state, payload) => {
       if (!state.twitchEvents) {
         return state.twitchEvents = [ payload ]
@@ -82,7 +83,7 @@
   const actions = {
     twitchViewersSet: ({ commit }, viewers) => commit(TWITCH_VIEWERS, viewers),
     twitchEventsPush: ({ commit }, event) => commit(TWITCH_PUBSUB_EVENT, event),
-    twitchFollowersPush: ({ commit }, event) => commit(TWITCH_FOLLOWERS, event),
+    twitchFollowerPush: ({ commit }, event) => commit(TWITCH_FOLLOWER, event),
     twitchIrcPush: ({ commit }, message) => commit(TWITCH_IRC_PRIVMSG, message),
     twitchIrcHideUser: ({ commit }, user) => commit(TWITCH_IRC_CLEARCHAT, user),
     twitchIrcHideMessage: ({ commit }, messageID) => commit(TWITCH_IRC_CLEARMSG, messageID),
