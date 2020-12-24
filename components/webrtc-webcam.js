@@ -52,13 +52,24 @@
               let pixiVideo = PIXI.Texture.from(webcamVideoNode)
               let pixiVideoSprite = new PIXI.Sprite(pixiVideo)
               app.stage.addChild(pixiVideoSprite)
-              let colorMatrix = new PIXI.filters.ColorMatrixFilter()
-              let chromaFilter = new PIXI.filters.ChromaFilter()
               pixiVideoSprite.filters = []
+
+              let chromaFilter = new PIXI.filters.ChromaFilter()
               pixiVideoSprite.filters.push(chromaFilter)
+
+              let colorMatrix = new PIXI.filters.ColorMatrixFilter()
               pixiVideoSprite.filters.push(colorMatrix)
-              // pixiVideoSprite.filters.push(new PIXI.filters.PixelateFilter)
+
+              // pixiVideoSprite.filters.push(new PIXI.filters.AlphaFilter())
+              // pixiVideoSprite.filters.push(new PIXI.filters.FXAAFilter())
+
+              // pixiVideoSprite.filters.push(new PIXI.filters.PixelateFilter())
               // pixiVideoSprite.filters.push(new PIXI.filters.AsciiFilter())
+
+              // const gui = new dat.GUI()
+              // gui.add(chromaFilter.uniforms, 'thresholdSensitivity', 0, 2, 0.001)
+              // gui.add(chromaFilter.uniforms, 'smoothing', 0, 10, 0.05)
+              // gui.addColor(chromaFilter.uniforms, 'colorToReplace')
             }, false)
           }
         }
