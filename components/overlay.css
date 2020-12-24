@@ -29,10 +29,9 @@
   z-index: 20;
 }
 
-#overlay-webcam {
+#overlay-webcam-canvas {
   max-height: calc(var(--real-px) * (480 / 2));
-  /* -- "cut" the frame a bit on the left */
-  /* margin-left: calc(-1 * var(--real-px) * (120 / 2)); */
+  margin-left: -60px;
 }
 
 #overlay-captions {

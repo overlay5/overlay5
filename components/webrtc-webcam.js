@@ -35,49 +35,47 @@
       updateWebcam: function () {
         if (this.webcamStream) {
           const webcamVideoNode = document.getElementById(this.id)
+          this.webcamVideoNode = webcamVideoNode
           if (webcamVideoNode) {
             webcamVideoNode.srcObject = this.webcamStream
+            // webcamVideoNode.addEventListener('play', this.timerCallback, false)
             webcamVideoNode.addEventListener('play', () => {
-              this.timerCallback()
+              /* PIXI Video */
+              let video = document.getElementById('camera')
+              let app = new PIXI.Application({
+                type: 'webgl',
+                transparent: true,
+                width: webcamVideoNode.videoWidth,
+                height: webcamVideoNode.videoHeight,
+                view: document.getElementById(this.id + '-canvas')
+              })
+              let pixiVideo = PIXI.Texture.from(webcamVideoNode)
+              let pixiVideoSprite = new PIXI.Sprite(pixiVideo)
+              app.stage.addChild(pixiVideoSprite)
+              let colorMatrix = new PIXI.filters.ColorMatrixFilter()
+              let chromaFilter = new PIXI.filters.ChromaFilter()
+              pixiVideoSprite.filters = []
+              pixiVideoSprite.filters.push(chromaFilter)
+              pixiVideoSprite.filters.push(colorMatrix)
+              // pixiVideoSprite.filters.push(new PIXI.filters.PixelateFilter)
+              // pixiVideoSprite.filters.push(new PIXI.filters.AsciiFilter())
             }, false)
           }
         }
       },
-      timerCallback: function () {
-        this.computeFrame()
-        setTimeout(() => this.timerCallback(), 3)
+      timerCallback: async function () {
+        /* compute things on each video frame */
+        requestAnimationFrame(this.timerCallback)
+        await this.computeFrame()
       },
-      computeFrame: function () {
-        let canvasZ = document.getElementById(this.id + '-canvas-z')
-        let context = canvasZ.getContext('2d')
-        let video = document.getElementById(this.id)
-        canvasZ.width = video.videoWidth
-        canvasZ.height = video.videoHeight
-        context.drawImage(video, 0, 0, video.videoWidth/4, video.videoHeight/4)
-        let frame = context.getImageData(0, 0, video.videoWidth, video.videoHeight)
-        let l = frame.data.length / 4
-        function rgb2hsv(r,g,b) {
-          let v = Math.max(r,g,b), c = v - Math.min(r,g,b)
-          let h = c && ((v == r) ? (g-b)/c : ((b==g) ? 2 + (b-r)/c : 4 +(r-g)/c))
-          return [ 60*(h<0 ? h+6 : h), v && c/v, v]
-        }
-        for (let i = 0; i < l; i++) {
-          let hsv = rgb2hsv(frame.data[i*4+0],frame.data[i*4+1],frame.data[i*4+2])
-          if (hsv[0] == 180 && hsv[2] > 60 && hsv[2] < 260) {
-            frame.data[i*4+3] = 0
-          }
-        }
-        canvas = document.getElementById(this.id + '-canvas')
-        // canvas.width = video.videoWidth
-        canvas.height = video.videoHeight
-        canvas.getContext('2d').putImageData(frame, 0, 0)
+      computeFrame: async function () {
+        /* video = this.webcamVideoNode */
         return
       }
     },
     template: /*html*/`
       <v-sheet color="transparent" :id="id + '-container'" elevation="0">
         <video style="display:none" :id="id" autoplay />
-        <canvas style="display:none" :id="id + '-canvas-z'"/>
         <canvas :id="id + '-canvas'"/>
       </v-sheet>
     `,
