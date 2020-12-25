@@ -60,11 +60,13 @@
               let colorMatrix = new PIXI.filters.ColorMatrixFilter()
               pixiVideoSprite.filters.push(colorMatrix)
 
+              // pixiVideoSprite.filters.push(new PIXI.filters.OldFilmFilter())
+              // pixiVideoSprite.filters.push(new PIXI.filters.NoiseFilter())
+              // pixiVideoSprite.filters.push(new PIXI.filters.RGBSplitFilter())
               // pixiVideoSprite.filters.push(new PIXI.filters.AlphaFilter())
               // pixiVideoSprite.filters.push(new PIXI.filters.FXAAFilter())
-
               // pixiVideoSprite.filters.push(new PIXI.filters.PixelateFilter())
-              // pixiVideoSprite.filters.push(new PIXI.filters.AsciiFilter())
+              // pixiVideoSprite.filters.push(new PIXI.filters.AsciiFilter(26))
 
               // const gui = new dat.GUI()
               // gui.add(chromaFilter.uniforms, 'thresholdSensitivity', 0, 2, 0.001)
