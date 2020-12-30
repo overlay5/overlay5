@@ -1,0 +1,25 @@
+{
+  "name": "overlay5",
+  "version": "0.0.1",
+  "description": "Overlay5",
+  "main": "main.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/overlay5/overlay5.git"
+  },
+  "author": "Evgeny Zislis <evgeny.zislis@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/overlay5/overlay5/issues"
+  },
+  "homepage": "https://github.com/overlay5/overlay5#readme",
+  "devDependencies": {
+    "eslint": "^7.16.0"
+  }
+}
