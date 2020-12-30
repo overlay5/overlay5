@@ -1,8 +1,10 @@
 (function(){
   Vue.component('WebrtcWebcam', {
-    props: [ 'id' ],
+    props: ['id'],
     data: () => ({
       webcamStream: null,
+      lastFrameTS: 0,
+      frameDelay: 0.05, // seconds
     }),
     watch: {
       webcamStream: function () {
@@ -39,50 +41,54 @@
           if (webcamVideoNode) {
             webcamVideoNode.srcObject = this.webcamStream
             // webcamVideoNode.addEventListener('play', this.timerCallback, false)
-            webcamVideoNode.addEventListener('play', () => {
-              /* PIXI Video */
-              let video = document.getElementById('camera')
-              let app = new PIXI.Application({
+            webcamVideoNode.addEventListener('play', async () => {
+
+              /* pIXI Video */
+              const app = new PIXI.Application({
                 type: 'webgl',
                 transparent: true,
                 width: webcamVideoNode.videoWidth,
                 height: webcamVideoNode.videoHeight,
                 view: document.getElementById(this.id + '-canvas')
               })
-              let pixiVideo = PIXI.Texture.from(webcamVideoNode)
-              let pixiVideoSprite = new PIXI.Sprite(pixiVideo)
-              app.stage.addChild(pixiVideoSprite)
+
+              window.webcamApp = app
+              const pixiVideo = PIXI.Texture.from(webcamVideoNode)
+
+              const pixiVideoSprite = new PIXI.Sprite(pixiVideo)
+              pixiVideoSprite.zIndex = 10
               pixiVideoSprite.filters = []
 
-              let chromaFilter = new PIXI.filters.ChromaFilter()
+              window.webcamSprite = pixiVideoSprite
+              app.stage.addChild(pixiVideoSprite)
+
+              const chromaFilter = new PIXI.filters.ChromaFilter()
               pixiVideoSprite.filters.push(chromaFilter)
 
-              let colorMatrix = new PIXI.filters.ColorMatrixFilter()
+              const colorMatrix = new PIXI.filters.ColorMatrixFilter()
               pixiVideoSprite.filters.push(colorMatrix)
 
-              // pixiVideoSprite.filters.push(new PIXI.filters.OldFilmFilter())
-              // pixiVideoSprite.filters.push(new PIXI.filters.NoiseFilter())
-              // pixiVideoSprite.filters.push(new PIXI.filters.RGBSplitFilter())
-              // pixiVideoSprite.filters.push(new PIXI.filters.AlphaFilter())
-              // pixiVideoSprite.filters.push(new PIXI.filters.FXAAFilter())
-              // pixiVideoSprite.filters.push(new PIXI.filters.PixelateFilter())
-              // pixiVideoSprite.filters.push(new PIXI.filters.AsciiFilter(26))
 
-              // const gui = new dat.GUI()
-              // gui.add(chromaFilter.uniforms, 'thresholdSensitivity', 0, 2, 0.001)
-              // gui.add(chromaFilter.uniforms, 'smoothing', 0, 10, 0.05)
-              // gui.addColor(chromaFilter.uniforms, 'colorToReplace')
+
+              // let noiseFilter = new PIXI.filters.NoiseFilter()
+              // app.ticker.add(() => {
+              //   noiseFilter.seed = Math.random()
+              // })
+              // pixiVideoSprite.filters.push(noiseFilter)
             }, false)
           }
         }
       },
-      timerCallback: async function () {
-        /* compute things on each video frame */
+
+      timerCallback: function () {
+        const { currentTime } = this.webcamVideoNode
+        if (currentTime >= this.lastFrameTS + this.frameDelay) {
+          this.computeFrame()
+          this.lastFrameTS = currentTime
+        }
         requestAnimationFrame(this.timerCallback)
-        await this.computeFrame()
       },
-      computeFrame: async function () {
-        /* video = this.webcamVideoNode */
+      computeFrame: function () {
         return
       }
     },
