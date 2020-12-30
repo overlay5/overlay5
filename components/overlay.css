@@ -31,7 +31,7 @@
 
 #overlay-webcam-canvas {
   max-height: calc(var(--real-px) * (480 / 2));
-  margin-left: -60px;
+  margin-left: -100px;
 }
 
 #overlay-captions {
@@ -147,6 +147,16 @@
   top: 0; /* calc(var(--real-px) * (40 / 2)); */
   z-index: 10;
   mix-blend-mode: screen;
+}
+
+#overlay-capture video {
+  height: 100%;
+  width: 100%;
+}
+#overlay-capture canvas {
+  display: none;
+  height: 100%;
+  width: 100%;
 }
 
 #overlay-particles {
