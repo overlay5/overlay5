@@ -1,0 +1,15 @@
+FROM nginx
+
+COPY docker/nginx-no-https.conf /etc/nginx/conf.d/default.conf
+
+# inputs for /docker-entrypoint.d/20-envsubst-on-templates.sh
+ENV NGINX_ENVSUBST_TEMPLATE_DIR=/usr/share/nginx/html \
+    NGINX_ENVSUBST_OUTPUT_DIR=/usr/share/nginx/html
+
+COPY components /usr/share/nginx/html/components/
+COPY lib        /usr/share/nginx/html/lib/
+COPY plugins    /usr/share/nginx/html/plugins/
+COPY store      /usr/share/nginx/html/store/
+COPY twitch     /usr/share/nginx/html/twitch/
+COPY voice      /usr/share/nginx/html/voice/
+COPY *.css *.js *.png *.svg *.template index.html /usr/share/nginx/html/
