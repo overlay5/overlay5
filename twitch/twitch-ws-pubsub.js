@@ -1,5 +1,5 @@
 (function () {
-  let TWITCH_ACCESS_TOKEN = window.localStorage.getItem('access_token')
+  let TWITCH_ACCESS_TOKEN = window.localStorage.getItem('twitch_access_token')
   const store = window.o5.store
 
   if (typeof window.PUBSUB_HANDLERS === 'undefined') {

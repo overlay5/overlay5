@@ -1,5 +1,5 @@
 (function () {
-  const TWITCH_ACCESS_TOKEN = window.localStorage.getItem('access_token')
+  const TWITCH_ACCESS_TOKEN = window.localStorage.getItem('twitch_access_token')
   const TWITCH_IRC_URI = 'wss://irc-ws.chat.twitch.tv'
   const TWITCH_IRC_PROTO = 'irc'
   const CLIENT_USERNAME = 'kesor6'

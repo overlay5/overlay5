@@ -14,7 +14,7 @@
   }
 
   const TWITCH_SOCKETHOOK_HOSTNAME = 'o5-web-subsocket.herokuapp.com'
-  const TWITCH_ACCESS_TOKEN = window.localStorage.getItem('access_token')
+  const TWITCH_ACCESS_TOKEN = window.localStorage.getItem('twitch_access_token')
   const TWITCH_API_URI = 'https://api.twitch.tv/helix/webhooks/hub'
 
   const TWITCH_SOCKETHOOK_NS = localStorage.getItem('hooks/namespace') || `twitch-webhooks-${nonce(15)}`
