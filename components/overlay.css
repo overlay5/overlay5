@@ -31,7 +31,7 @@
 
 #overlay-webcam-canvas {
   max-height: calc(var(--real-px) * (480 / 2));
-  margin-left: -100px;
+  /* margin-left: -100px; */
 }
 
 #overlay-captions {
@@ -137,7 +137,7 @@
   scroll-snap-align: end;
 }
 
-#overlay-capture {
+#overlay-capture-container {
   position: absolute;
   max-width: calc(var(--real-px) * (3840 / 2));
   max-height: calc(var(--real-px) * (2160 / 2));
@@ -146,15 +146,29 @@
   left: 0; /* calc(var(--real-px) * (40 / 2)); */
   top: 0; /* calc(var(--real-px) * (40 / 2)); */
   z-index: 10;
-  mix-blend-mode: screen;
+  /* mix-blend-mode: screen; */
 }
 
-#overlay-capture video {
+#overlay-spotify {
+  position: absolute;
+  max-width: calc(var(--real-px) * (720 / 2));
+  min-width: calc(var(--real-px) * (720 / 2));
+  max-height: calc(var(--real-px) * (200 / 2));
+  min-height: calc(var(--real-px) * (200 / 2));
+  left: calc(var(--real-px) * ((2880 - 720 - 20) / 2));
+  top: calc(var(--real-px) * ((1440 + 400) / 2));
+  overflow: hidden;
+  z-index: 20;
+}
+
+video#overlay-capture {
+  /* display: none; */
   height: 100%;
   width: 100%;
 }
-#overlay-capture canvas {
-  display: none;
+canvas#overlay-capture-canvas {
+  /* does not work, pixi.js stops refreshing the screen */
+  /* display: none; */
   height: 100%;
   width: 100%;
 }
@@ -163,4 +177,8 @@
   position: absolute;
   height: 100%;
   width: 100%;
+}
+
+.dg.ac {
+  z-index: 50 !important;
 }

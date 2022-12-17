@@ -2,7 +2,7 @@
   Vue.component('TwitchChatMessage', {
     props: ['message'],
     template: /*html*/`
-      <v-sheet class="my-1 py-1 px-2" elevation="3">
+      <v-sheet class="my-1 py-1 px-2" elevation="3" style="opacity: 80%">
         <span class="d-inline-block subtitle-2">
           <span v-for="badge in badges" :key="badge"><img :src="badge"/>&nbsp;</span>
           <span :style="style">{{ message.tags['display-name'] }}</span>
