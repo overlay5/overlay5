@@ -16,7 +16,10 @@
       component: Vue.component('Config')
     }, {
       path: '/oauth',
-      component: Vue.component('OAuth')
+      component: Vue.component('OAuthTwitch')
+    }, {
+      path: '/callback/oauth2',
+      component: Vue.component('OAuthSpotify')
     }]
   })
 })()

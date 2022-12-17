@@ -151,14 +151,18 @@
 
 #overlay-spotify {
   position: absolute;
-  max-width: calc(var(--real-px) * (720 / 2));
-  min-width: calc(var(--real-px) * (720 / 2));
-  max-height: calc(var(--real-px) * (200 / 2));
-  min-height: calc(var(--real-px) * (200 / 2));
-  left: calc(var(--real-px) * ((2880 - 720 - 20) / 2));
-  top: calc(var(--real-px) * ((1440 + 400) / 2));
-  overflow: hidden;
+  max-width: calc(var(--real-px) * (400 / 2));
+  min-width: calc(var(--real-px) * (400 / 2));
+  max-height: calc(var(--real-px) * (400 / 2));
+  min-height: calc(var(--real-px) * (400 / 2));
+  left: calc(var(--real-px) * ((2880 - 420) / 2));
+  top: calc(var(--real-px) * ((1440 + 0) / 2));
+  /* overflow: hidden; */
   z-index: 20;
+}
+
+.rounded-img {
+  border-radius: calc(var(--real-px) * (50 / 2));
 }
 
 video#overlay-capture {

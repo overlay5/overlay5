@@ -15,7 +15,7 @@
           <TwitchViewers id="overlay-viewers"/>
           <Time id="overlay-time"/>
           <AudioCaptions v-if="mediaRecognition" id="overlay-captions"/>
-          <!-- <Spotify id="overlay-spotify"/> -->
+          <Spotify id="overlay-spotify"/>
         </div>
         <div id="overlay-top"></div>
       </v-content>

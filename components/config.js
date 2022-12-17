@@ -53,18 +53,6 @@
 
   ].join(' ')
 
-  Vue.component('OAuth', {
-    render: (h) => {
-      return h()
-    },
-    created: async function() {
-      const oauth = Object.fromEntries(
-        window.location.hash.slice(1).split('&').map(x => x.split('=')))
-      window.localStorage.setItem('access_token', oauth.access_token)
-      window.close()
-    }
-  })
-
   Vue.component('Config', {
     data: () => ({
       cameras: [],
@@ -74,6 +62,9 @@
       twitchLoading: false,
       twitchConnected: false,
       twitchDialog: false,
+      spotifyLoading: false,
+      spotifyConnected: false,
+      spotifyDialog: false,
     }),
     created: async function () {
       const devices = await navigator.mediaDevices.enumerateDevices()
@@ -102,12 +93,12 @@
         this.audio = ''
       },
       checkAccessToken: function () {
-        const token = window.localStorage.getItem('access_token')
-        if (token) {
-          this.twitchConnected = true
-        }
+        const twitchToken = window.localStorage.getItem('twitch_access_token')
+        const spotifyToken = window.localStorage.getItem('spotify_access_token')
+        if (twitchToken) this.twitchConnected = true
+        if (spotifyToken) this.spotifyConnected = true
       },
-      startOAuth: function (event) {
+      startTwitchAuth: function (event) {
         const client_id = CLIENT_ID
         const redirect_uri = CLIENT_REDIRECT_URI
         const response_type = 'token'
@@ -122,21 +113,60 @@
         const url = 'https://id.twitch.tv/oauth2/authorize'
         window.open(url + '?' + qs, "_blank");
       },
+      startSpotifyAuth: function (event) {
+        const client_id = SPOTIFY_CLIENT_ID
+        const redirect_uri = SPOTIFY_REDIRECT_URI
+        const response_type = 'token'
+        const scope = ['user-read-currently-playing'].join(' ')
+        const queryString = {
+          client_id,
+          redirect_uri,
+          response_type,
+          scope
+        }
+        const qs = Object.keys(queryString).map(q => q + '=' + encodeURIComponent(queryString[q])).join('&')
+        const url = 'https://accounts.spotify.com/authorize'
+        window.open(url + '?' + qs, '_blank')
+      },
       integrateTwitch: function (event) {
         if (!this.twitchConnected) {
-          return this.startOAuth()
+          return this.startTwitchAuth()
         }
         this.twitchDialog = true
       },
       disconnectTwitch: function (event) {
-        window.localStorage.removeItem('access_token')
+        window.localStorage.removeItem('twitch_access_token')
         this.twitchConnected = false
         this.twitchDialog = false
+      },
+      disconnectSpotify: function (event) {
+        window.localStorage.removeItem('spotify_access_token')
+        this.spotifyConnected = false
+        this.spotifyDialog = false
+      },
+      integrateSpotify: function (event) {
+        if (!this.spotifyConnected) {
+          return this.startSpotifyAuth()
+        }
+        this.spotifyDialog = true
       },
       twitchBtnStyle: function () {
         if (this.twitchConnected) {
           return {
             color: '#6441A4',
+            outlined: false,
+            disabled: true
+          }
+        }
+        return {
+          color: 'white',
+          outlined: true
+        }
+      },
+      spotifyBtnStyle: function () {
+        if (this.twitchConnected) {
+          return {
+            color: '#1DB954',
             outlined: false,
             disabled: true
           }
@@ -167,6 +197,21 @@
           </v-card>
         </v-dialog>
 
+        <v-dialog raised v-model="spotifyDialog" :value="spotifyDialog" width="500">
+          <v-card raised>
+            <v-card-title primary-title>
+              Disconnect from Spotify
+            </v-card-title>
+            <v-card-text class="headline">Are you sure?</v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn text @click.native.stop="spotifyDialog = false">cancel</v-btn>
+              <v-btn color="error" @click.native.stop="disconnectSpotify()">disconnect spotify</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
         <v-container class="fill-height" fluid>
           <v-row align="center" justify="center">
             <v-col cols="12" sm="8" md="4">
@@ -181,6 +226,11 @@
                       <v-btn class="mt-2 mb-4" :loading="twitchLoading" :disabled="twitchLoading" @click.native.stop="integrateTwitch()" v-bind="twitchBtnStyle()">
                         <v-icon :left="true" >fab fa-twitch</v-icon>
                         Twitch
+                      </v-btn>
+                    <v-spacer/>
+                      <v-btn class="mt-2 mb-4" :loading="spotifyLoading" :disabled="spotifyLoading" @click.native.stop="integrateSpotify()" v-bind="spotifyBtnStyle()">
+                        <v-icon :left="true" >fab fa-spotify</v-icon>
+                        Spotify
                       </v-btn>
                     <v-spacer />
                     <v-select v-model="camera" :items="cameras" item-text="label" item-value="deviceId" prepend-icon="camera_alt" label="Select the camera device to use:"/>
