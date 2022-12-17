@@ -6,7 +6,7 @@
         <v-img class="rounded-image" v-bind:src="albumImage" alt="Album Cover" />
         <v-card-title>{{ trackName }}</v-card-title>
         <v-card-subtitle>{{ artistName }}</v-card-subtitle>
-        <v-progress-linear v-bind:value="progress" color="primary"></v-progress-linear>
+        <v-progress-linear v-bind:value="progress" color="dark"></v-progress-linear>
       </v-card>
     `,
     data() {
