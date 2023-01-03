@@ -115,13 +115,13 @@
       },
       startSpotifyAuth: function (event) {
         const client_id = SPOTIFY_CLIENT_ID
+        const client_secret = SPOTIFY_CLIENT_SECRET
         const redirect_uri = SPOTIFY_REDIRECT_URI
-        const response_type = 'token'
         const scope = ['user-read-currently-playing'].join(' ')
         const queryString = {
           client_id,
           redirect_uri,
-          response_type,
+          response_type: 'code',
           scope
         }
         const qs = Object.keys(queryString).map(q => q + '=' + encodeURIComponent(queryString[q])).join('&')

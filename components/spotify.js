@@ -25,6 +25,8 @@
     },
     methods: {
       async updateWidget() {
+        if (!localStorage.spotify_access_token)
+          return;
         try {
           // Replace SPOTIFY_AUTH_TOKEN with your own Spotify authentication token
           const authHeader = {

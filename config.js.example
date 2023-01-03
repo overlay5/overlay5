@@ -3,3 +3,7 @@ const CHANNEL_ID = '<your channel/user number id>'
 const CLIENT_ID = '<the application client_id>'
 const CLIENT_REDIRECT_URI = 'https://<the application url & path>'
 const WS_PROXY_URL = 'http://<websocket-proxy>'
+
+const SPOTIFY_CLIENT_ID = '<client_id from https://developer.spotify.com/dashboard/applications>'
+const SPOTIFY_CLIENT_SECRET = '<client_secret from https://developer.spotify.com/dashboard/applications>'
+const SPOTIFY_REDIRECT_URI = 'https://<application url & path - must match exactly to dashboard/applications!>'
