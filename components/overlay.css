@@ -170,6 +170,7 @@ video#overlay-capture {
   height: 100%;
   width: 100%;
 }
+
 canvas#overlay-capture-canvas {
   /* does not work, pixi.js stops refreshing the screen */
   /* display: none; */
@@ -180,6 +181,15 @@ canvas#overlay-capture-canvas {
 #overlay-particles {
   position: absolute;
   height: 100%;
+  width: 100%;
+}
+
+#overlay-bg-container: {
+  width: 100%;
+  overflow: hidden;
+}
+
+#overlay-bg {
   width: 100%;
 }
 
