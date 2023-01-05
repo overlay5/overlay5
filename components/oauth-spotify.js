@@ -17,15 +17,15 @@ Vue.component('OAuthSpotify', {
         code: oauth.code,
         redirect_uri: SPOTIFY_REDIRECT_URI
       }
-      const credentials = btoa(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`)
       const body = Object.keys(queryString).map(q => q + '=' + encodeURIComponent(queryString[q])).join('&')
+      const credentials = btoa(`${SPOTIFY_CLIENT_ID}:${SPOTIFY_CLIENT_SECRET}`)
       const response = await fetch('https://accounts.spotify.com/api/token', {
         method: 'POST',
+        body,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           'Authorization': `Basic ${credentials}`,
-        },
-        body
+        }
       });
       const tokens = await response.json()
       window.localStorage.setItem('spotify_access_token', tokens.access_token)
