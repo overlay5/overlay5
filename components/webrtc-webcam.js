@@ -134,10 +134,10 @@
       }
     },
     template: /*html*/`
-      <div :id="id + '-container'">
+      <v-card :id="id + '-container'">
         <video :id="id" style="display:none" autoplay />
         <canvas :id="id + '-canvas'"/>
-      </div>
+      </v-card>
     `,
     activated: function() {
       this.updateVideo()

@@ -7,7 +7,7 @@
       <v-content>
         <NavMenu target="/config" icon="settings" />
         <div id="overlay">
-          <!-- <Particles id="overlay-particles"/> -->
+          <Particles id="overlay-particles"/>
           <Background id="overlay-bg"/>
           <WebrtcWindowCapture id="overlay-capture"/>
           <TwitchChat id="overlay-chat" />

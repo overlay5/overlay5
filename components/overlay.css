@@ -161,10 +161,6 @@
   z-index: 20;
 }
 
-.rounded-img {
-  border-radius: calc(var(--real-px) * (50 / 2));
-}
-
 video#overlay-capture {
   /* display: none; */
   height: 100%;
